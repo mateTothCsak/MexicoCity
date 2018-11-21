@@ -31,9 +31,15 @@ hs_err_pid*
 
 # files in idea are ignored
 .idea/*
+.idea/compiler.xml
+
+#Hibernate
+.persistence.xml
+
 
 # frontend .idea is ignored
 /Frontend/*
+
 
 ### Maven ###
 target/

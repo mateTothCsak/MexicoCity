@@ -10,8 +10,13 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Backend" target="1.5" />
+      <module name="Backend" target="1.8" />
       <module name="mexicoCity" target="1.5" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Backend" options="" />
+    </option>
   </component>
 </project>
