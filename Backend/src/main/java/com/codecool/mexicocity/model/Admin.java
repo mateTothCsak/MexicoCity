@@ -35,6 +35,12 @@ public class Admin {
         Item stick = new Item("Pimp Stick", "Nice pimp stick", 100, "image/pimpStick.jpg", Category.FEATHER);
         em.persist(stick);
 
+        Rooster rooster = new Rooster();
+        em.persist(rooster);
+
+        User user = new User("admin","admin",rooster);
+        em.persist(user);
+
         transaction.commit();
         items.add(stick);
         return items;

@@ -1,17 +1,27 @@
 package com.codecool.mexicocity.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "player")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String email;
     private String password;
-    private Rooster rooster;
+
+    @OneToOne
+    private Rooster myRooster;
 
 
     // FOR REGISTRATION
     public User(String email, String password) {
         this.email = email;
         this.password = password;
-        this.rooster = new Rooster();
+        this.myRooster = new Rooster();
     }
 
     //
@@ -19,10 +29,10 @@ public class User {
     public User(String email, String password, Rooster rooster) {
         this.email = email;
         this.password = password;
-        this.rooster = rooster;
+        this.myRooster = rooster;
     }
 
 
-
-
+    public User() {
+    }
 }

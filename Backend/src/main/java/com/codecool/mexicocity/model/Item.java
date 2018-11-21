@@ -2,6 +2,8 @@ package com.codecool.mexicocity.model;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -14,6 +16,12 @@ public class Item {
     private String description;
     private int price;
     private String image;
+
+    @ManyToOne()
+    private Rooster rooster;
+
+    @ManyToOne
+    private FreeShop freeShop;
 
     @Enumerated(EnumType.STRING)
     private Category category;

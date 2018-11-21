@@ -1,22 +1,31 @@
 package com.codecool.mexicocity.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
 public class Rooster {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private boolean online = true;
     private int experience;
     private int level;
     private int gold;
-    private List<Item> items = new ArrayList<Item>();
+
+    @OneToMany(mappedBy = "rooster")
+    private List<Item> roosterItems = new ArrayList<>();
+
+    @OneToOne(mappedBy = "myRooster",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private User user;
+
     private int wonMatches;
     private int lostMatches;
     private int winRatio;
     private String image;
 
-
+    @Transient
     private MyServer myServer;
 
 
@@ -31,11 +40,11 @@ public class Rooster {
     }
 
     // Details extracted from DB, constructor used when user already has an account
-    public Rooster(int experience, int level, int gold, List<Item> items, int wonMatches, int lostMatches, String image) {
+    public Rooster(int experience, int level, int gold, List<Item> roosterItems, int wonMatches, int lostMatches, String image) {
         this.experience = experience;
         this.level = level;
         this.gold = gold;
-        this.items = items;
+        this.roosterItems = roosterItems;
         this.wonMatches = wonMatches;
         this.lostMatches = lostMatches;
         this.image = image;
@@ -59,7 +68,7 @@ public class Rooster {
         }
     }
 
-    // Adds item to items
+    // Adds item to shopItems
     private void addItems(Item item){
         //TODO
     }
@@ -113,9 +122,9 @@ public class Rooster {
 
 
     // GETTERS FOR FIELDS
-    // returns items
-    public List<Item> getItems() {
-        return items;
+    // returns shopItems
+    public List<Item> getRoosterItems() {
+        return roosterItems;
     }
 
     //
