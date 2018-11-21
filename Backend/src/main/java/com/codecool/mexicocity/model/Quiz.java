@@ -1,3 +1,5 @@
+package com.codecool.mexicocity.model;
+
 public class Quiz {
     private int id;
     private String context;

@@ -1,9 +1,21 @@
+package com.codecool.mexicocity.model;
+
+
+import javax.persistence.*;
+
+@Entity
 public class Item {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private String description;
     private int price;
     private String image;
+
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     public Item() {}

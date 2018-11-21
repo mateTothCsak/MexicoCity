@@ -1,4 +1,4 @@
-import com.sun.xml.internal.bind.v2.TODO;
+package com.codecool.mexicocity.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +17,13 @@ public class Rooster {
     private String image;
 
 
+    private MyServer myServer;
+
+
     // Constructor used when new user registers
     public Rooster() {
         this.experience = 0;
-        this.level = 0;
+        this.level = 1;
         this.gold = 0;
         this.wonMatches = 0;
         this.lostMatches = 0;
@@ -44,7 +47,7 @@ public class Rooster {
         //TODO
     }
 
-    // User sends her/his solution for the quiz
+    // com.codecool.mexicocity.model.User sends her/his solution for the quiz
     public int sendSolution(){
         return 0;
     }
@@ -69,10 +72,20 @@ public class Rooster {
         return false;
     }
 
+
     // Calculates winRatio
     private void calculateWinRatio(){
         //TODO
     }
+
+
+    // METHODS FOR FIGHTS
+    public void initializeFight(){
+        myServer = new MyServer();
+        myServer.createFight(this);
+    }
+
+
 
 
     public void fightWon(int goldToAdd, int experienceToAdd){
@@ -86,6 +99,8 @@ public class Rooster {
         //TODO
         increaseExperience(experienceToAdd);
     }
+
+
 
 
     private void increaseGold(int goldToAdd){

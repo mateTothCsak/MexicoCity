@@ -1,3 +1,5 @@
+package com.codecool.mexicocity.model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,4 +13,5 @@ public class MyServer {
         Rooster computerRooster = new Rooster();
         new Fight(rooster1, computerRooster);
     }
+
 }
