@@ -1,10 +1,8 @@
 package com.codecool.mexicocity.model;
 
-import com.codecool.mexicocity.controller.IndexController;
-import com.codecool.mexicocity.controller.JettyServer;
+import com.codecool.mexicocity.controller.*;
 import com.codecool.mexicocity.util.MyEntityManager;
 
-import com.codecool.mexicocity.controller.LoggedInMainPageController;
 import com.codecool.mexicocity.util.MyEntityManager;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -35,6 +33,10 @@ public class Admin {
         ServletContextHandler handler = new ServletContextHandler(server, "/");
         handler.addServlet(IndexController.class, "/");
         handler.addServlet(LoggedInMainPageController.class, "/home");
+        handler.addServlet(FreeShopController.class, "/freeshop");
+        handler.addServlet(MyProfileController.class, "/myprofile");
+
+
         try {
             server.start();
         } catch (Exception e) {
