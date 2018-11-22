@@ -1,6 +1,13 @@
 package com.codecool.mexicocity.model;
 
+import com.codecool.mexicocity.controller.IndexController;
 import com.codecool.mexicocity.controller.JettyServer;
+import com.codecool.mexicocity.util.MyEntityManager;
+
+import com.codecool.mexicocity.controller.LoggedInMainPageController;
+import com.codecool.mexicocity.util.MyEntityManager;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletContextHandler;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,14 +17,24 @@ public class Admin {
 
     public static void main(String[] args) {
         Admin admin = new Admin();
-        admin.startJettyServer();
+        //admin.createDBConnection();
+        EntityManager em = MyEntityManager.getInstance().getEm();
 
-        admin.createDBConnection();
+        admin.createShop(em);
+        em.clear();
+
+        admin.startJettyServer();
+        //em.close();
+
     }
 
 
     private void startJettyServer(){
-        JettyServer server = new JettyServer();
+        //JettyServer server = new JettyServer();
+        Server server = new Server(8090);
+        ServletContextHandler handler = new ServletContextHandler(server, "/");
+        handler.addServlet(IndexController.class, "/");
+        handler.addServlet(LoggedInMainPageController.class, "/home");
         try {
             server.start();
         } catch (Exception e) {
@@ -74,14 +91,13 @@ public class Admin {
 
 
     private void createDBConnection(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("mexicocity");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = MyEntityManager.getInstance().getEm();
 
         createShop(em);
+
         em.clear();
 
         em.close();
-        emf.close();
     }
 
     public void createNewUser(EntityManager entityManager, String email, String password){

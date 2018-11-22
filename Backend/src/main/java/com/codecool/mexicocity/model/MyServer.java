@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyServer {
-    private int id;
     private List<Fight> fights = new ArrayList<Fight>();
 
     public MyServer() {}

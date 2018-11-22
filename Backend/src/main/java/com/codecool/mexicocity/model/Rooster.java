@@ -1,5 +1,8 @@
 package com.codecool.mexicocity.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +10,7 @@ import java.util.List;
 public class Rooster {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     private boolean online = true;
     private int experience;
@@ -17,7 +20,9 @@ public class Rooster {
     @OneToMany(mappedBy = "rooster")
     private List<Item> roosterItems = new ArrayList<>();
 
-    @OneToOne(mappedBy = "myRooster",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    //@JsonManagedReference is for Jackson to BETTER handle jackson
+    @OneToOne(mappedBy = "myRooster",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
     private User user;
 
     private int wonMatches;
@@ -129,6 +134,50 @@ public class Rooster {
     // returns shopItems
     public List<Item> getRoosterItems() {
         return roosterItems;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public int getWonMatches() {
+        return wonMatches;
+    }
+
+    public int getLostMatches() {
+        return lostMatches;
+    }
+
+    public int getWinRatio() {
+        return winRatio;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public Fight getFight() {
+        return fight;
     }
 
     //

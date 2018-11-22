@@ -1,5 +1,7 @@
 package com.codecool.mexicocity.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -11,12 +13,14 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     private String email;
     private String password;
 
+    //@JsonManagedReference is for Jackson to BETTER handle jackson
     @OneToOne
+    @JsonManagedReference
     private Rooster myRooster;
 
     private String salt = "iocnqsmo23n";
@@ -48,5 +52,21 @@ public class User {
             e.printStackTrace();
         }
         return generatedPassword;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Rooster getMyRooster() {
+        return myRooster;
     }
 }
