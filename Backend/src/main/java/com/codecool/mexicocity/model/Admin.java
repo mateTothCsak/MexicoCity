@@ -73,10 +73,10 @@ public class Admin {
 
         //Users
 
-        createNewUser(em, "tocsi", "admin");
-        createNewUser(em, "stefan", "admin");
-        createNewUser(em, "henry", "admin");
-        createNewUser(em, "mate", "admin");
+        createNewUser(em, "tocsi", "admin1");
+        createNewUser(em, "stefan", "admin2");
+        createNewUser(em, "henry", "admin3");
+        createNewUser(em, "mate", "admin4");
 
         transaction.commit();
         items.add(stick);
