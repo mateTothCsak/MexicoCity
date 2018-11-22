@@ -53,27 +53,13 @@ public class Admin {
         Item vest = new Item("Soldier Vest", "Prrrotection 100", 450, "image/vest.jpg", Category.ARMOR);
         em.persist(vest);
 
-        //Roosters
-
-        Rooster rooster1 = new Rooster();
-        em.persist(rooster1);
-        Rooster rooster2 = new Rooster();
-        em.persist(rooster2);
-        Rooster rooster3 = new Rooster();
-        em.persist(rooster3);
-        Rooster rooster4 = new Rooster();
-        em.persist(rooster4);
 
         //Users
 
-        User tocsi = new User("tocsi","admin",rooster1);
-        em.persist(tocsi);
-        User mate = new User("mate","admin",rooster2);
-        em.persist(mate);
-        User henry = new User("henry","admin",rooster3);
-        em.persist(henry);
-        User stefan = new User("stefan","admin",rooster4);
-        em.persist(stefan);
+        createNewUser(em, "tocsi", "admin");
+        createNewUser(em, "stefan", "admin");
+        createNewUser(em, "henry", "admin");
+        createNewUser(em, "mate", "admin");
 
         transaction.commit();
         items.add(stick);
