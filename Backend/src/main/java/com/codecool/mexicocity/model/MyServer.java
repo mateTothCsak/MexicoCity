@@ -11,7 +11,7 @@ public class MyServer {
 
     public void createFight(Rooster rooster1){
         Rooster computerRooster = new Rooster();
-        new Fight(rooster1, computerRooster);
+        new Fight(rooster1);
     }
 
 }

@@ -35,11 +35,7 @@ public class Admin {
         Item stick = new Item("Pimp Stick", "Nice pimp stick", 100, "image/pimpStick.jpg", Category.FEATHER);
         em.persist(stick);
 
-        Rooster rooster = new Rooster();
-        em.persist(rooster);
-
-        User user = new User("admin","admin",rooster);
-        em.persist(user);
+        createNewUser(em, "admin", "admin");
 
         transaction.commit();
         items.add(stick);
@@ -62,5 +58,12 @@ public class Admin {
 
         em.close();
         emf.close();
+    }
+
+    public void createNewUser(EntityManager entityManager, String email, String password){
+        Rooster rooster = new Rooster();
+        entityManager.persist(rooster);
+        User user = new User(email, password, rooster);
+        entityManager.persist(user);
     }
 }

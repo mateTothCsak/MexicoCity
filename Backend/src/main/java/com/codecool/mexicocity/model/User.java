@@ -17,15 +17,6 @@ public class User {
     private Rooster myRooster;
 
 
-    // FOR REGISTRATION
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-        this.myRooster = new Rooster();
-    }
-
-    //
-    // FOR LOGIN
     public User(String email, String password, Rooster rooster) {
         this.email = email;
         this.password = password;
