@@ -1,10 +1,14 @@
 package com.codecool.mexicocity.util;
 
+import com.codecool.mexicocity.model.Rooster;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.IOException;
+import java.util.List;
 
 public class JasonHandler {
 
@@ -18,6 +22,22 @@ public class JasonHandler {
     }
 
 
+    public String jsonifyList(List list) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        //Set pretty printing of json
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+        //1. Convert List of Person objects to JSON
+        String arrayToJson = (String) objectMapper.writeValueAsString(list);
+
+        return arrayToJson;
+    }
+
+    /*public List<Object> listOfObjectsFromJson(String json, Rooster rooster){
+        TypeReference<List<rooster>> mapType = new TypeReference<List<rooster>>() {};
+        List<Person> jsonToPersonList = objectMapper.readValue(arrayToJson, mapType);
+    }*/
+
     public String jsonify(Object data) {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -25,7 +45,6 @@ public class JasonHandler {
         String jsonString = "";
         try{
             jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(data);
-            System.out.println(jsonString);
         }
         catch (JsonParseException e) { e.printStackTrace();}
         catch (JsonMappingException e) { e.printStackTrace(); }
