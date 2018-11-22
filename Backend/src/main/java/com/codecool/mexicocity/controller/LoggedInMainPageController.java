@@ -1,6 +1,7 @@
 package com.codecool.mexicocity.controller;
 
 import com.codecool.mexicocity.model.Item;
+import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.util.JasonHandler;
 import com.codecool.mexicocity.util.MyEntityManager;
 
@@ -22,9 +23,13 @@ public class LoggedInMainPageController extends HttpServlet {
             throws ServletException, IOException {
 
         EntityManager em = MyEntityManager.getInstance().getEm();
-        //int id = Integer.parseInt(request.getParameter("id"));
-        Item item = em.find(Item.class, 1);
-        String jsonString = JasonHandler.getInstance().jsonify(item);
+        long id = Long.parseLong(request.getParameter("id"));
+        Rooster rooster = em.find(Rooster.class, id);
+
+        System.out.println(rooster.toString());
+
+
+        String jsonString = JasonHandler.getInstance().jsonify(rooster);
 
 
         response.setContentType("application/json;charset=UTF-8");

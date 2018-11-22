@@ -9,7 +9,7 @@ public class Fight {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Temporal(TemporalType.DATE)
     private Date timeOfFight;
@@ -62,4 +62,27 @@ public class Fight {
     private void increaseGold(){}
     private void loseHealth(){}
 
+    public long getId() {
+        return id;
+    }
+
+    public Date getTimeOfFight() {
+        return timeOfFight;
+    }
+
+    public int getRounds() {
+        return rounds;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public Rooster getRooster1() {
+        return rooster1;
+    }
 }
