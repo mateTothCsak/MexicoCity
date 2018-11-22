@@ -4,6 +4,7 @@ import com.codecool.mexicocity.model.Item;
 import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.util.JasonHandler;
 import com.codecool.mexicocity.util.MyEntityManager;
+import org.hibernate.query.Query;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/home"})
 public class LoggedInMainPageController extends HttpServlet {
@@ -23,17 +25,20 @@ public class LoggedInMainPageController extends HttpServlet {
             throws ServletException, IOException {
 
         EntityManager em = MyEntityManager.getInstance().getEm();
-        long id = Long.parseLong(request.getParameter("id"));
-        Rooster rooster = em.find(Rooster.class, id);
+        //long id = Long.parseLong(request.getParameter("id"));
+        //Rooster rooster = em.find(Rooster.class, id);
 
-        System.out.println(rooster.toString());
+        String hql = "SELECT r FROM Rooster AS r ORDER BY winRatio";
+        Query query = (Query) em.createQuery(hql);
+        List roosters = query.list();
 
 
-        String jsonString = JasonHandler.getInstance().jsonify(rooster);
+        //String jsonString = JasonHandler.getInstance().jsonify(rooster);
 
-
+        String jsonStringList = JasonHandler.getInstance().jsonifyList(roosters);
         response.setContentType("application/json;charset=UTF-8");
         ServletOutputStream out = response.getOutputStream();
-        out.print(jsonString);
+        out.print(jsonStringList);
     }
+
 }
