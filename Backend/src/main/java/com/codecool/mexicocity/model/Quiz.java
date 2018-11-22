@@ -6,7 +6,6 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 public class Quiz {
-    private int id;
     private String context;
     private int solution;
 
