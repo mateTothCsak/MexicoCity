@@ -1,6 +1,10 @@
 package com.codecool.mexicocity.model;
 
+import com.codecool.mexicocity.controller.IndexController;
 import com.codecool.mexicocity.controller.JettyServer;
+import com.codecool.mexicocity.controller.LoggedInMainPageController;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletContextHandler;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,7 +21,11 @@ public class Admin {
 
 
     private void startJettyServer(){
-        JettyServer server = new JettyServer();
+        //JettyServer server = new JettyServer();
+        Server server = new Server(8090);
+        ServletContextHandler handler = new ServletContextHandler(server, "/");
+        handler.addServlet(IndexController.class, "/");
+        handler.addServlet(LoggedInMainPageController.class, "/home");
         try {
             server.start();
         } catch (Exception e) {
