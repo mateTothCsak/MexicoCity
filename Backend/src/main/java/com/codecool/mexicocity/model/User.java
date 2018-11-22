@@ -19,6 +19,7 @@ public class User {
     private String password;
 
     //@JsonManagedReference is for Jackson to BETTER handle jackson
+    //the back part of reference – it will be omitted from serialization
     @OneToOne
     @JsonManagedReference
     private Rooster myRooster;

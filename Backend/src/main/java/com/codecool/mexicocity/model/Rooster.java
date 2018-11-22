@@ -21,6 +21,7 @@ public class Rooster {
     private List<Item> roosterItems = new ArrayList<>();
 
     //@JsonManagedReference is for Jackson to BETTER handle jackson
+    //the forward part of reference – the one that gets serialized normally
     @OneToOne(mappedBy = "myRooster",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
     private User user;
@@ -130,6 +131,7 @@ public class Rooster {
 
 
 
+
     // GETTERS FOR FIELDS
     // returns shopItems
     public List<Item> getRoosterItems() {
@@ -183,4 +185,21 @@ public class Rooster {
     //
     //
 
+
+    @Override
+    public String toString() {
+        return "Rooster{" +
+                "id=" + id +
+                ", online=" + online +
+                ", experience=" + experience +
+                ", level=" + level +
+                ", gold=" + gold +
+                ", roosterItems=" + roosterItems +
+                ", user=" + user +
+                ", wonMatches=" + wonMatches +
+                ", lostMatches=" + lostMatches +
+                ", winRatio=" + winRatio +
+                ", image='" + image + '\'' +
+                '}';
+    }
 }
