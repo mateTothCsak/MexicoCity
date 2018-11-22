@@ -25,6 +25,9 @@ public class Rooster {
     private int winRatio;
     private String image;
 
+    @OneToOne(mappedBy = "rooster1")
+    private Fight fight;
+
     @Transient
     private MyServer myServer;
 
@@ -119,6 +122,7 @@ public class Rooster {
     private void increaseExperience(int experienceToAdd){
         //TODO
     }
+
 
 
     // GETTERS FOR FIELDS

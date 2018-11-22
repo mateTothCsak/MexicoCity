@@ -20,9 +20,6 @@ public class Item {
     @ManyToOne()
     private Rooster rooster;
 
-    @ManyToOne
-    private FreeShop freeShop;
-
     @Enumerated(EnumType.STRING)
     private Category category;
 
