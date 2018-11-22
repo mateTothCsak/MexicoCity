@@ -21,6 +21,7 @@ public class Rooster {
     private List<Item> roosterItems = new ArrayList<>();
 
     //@JsonManagedReference is for Jackson to BETTER handle jackson
+    //the forward part of reference – the one that gets serialized normally
     @OneToOne(mappedBy = "myRooster",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
     private User user;
