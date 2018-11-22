@@ -34,7 +34,7 @@ hs_err_pid*
 .idea/compiler.xml
 
 #Hibernate
-.persistence.xml
+resources/META-INF/persistence.xml
 
 
 # frontend .idea is ignored

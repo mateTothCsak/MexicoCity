@@ -21,9 +21,11 @@ public class JasonHandler {
     public String jsonify(Object data) {
         ObjectMapper mapper = new ObjectMapper();
 
+
         String jsonString = "";
         try{
             jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(data);
+            System.out.println(jsonString);
         }
         catch (JsonParseException e) { e.printStackTrace();}
         catch (JsonMappingException e) { e.printStackTrace(); }
