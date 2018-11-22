@@ -1,6 +1,5 @@
 package com.codecool.mexicocity.util;
 
-import com.codecool.mexicocity.model.Rooster;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -10,15 +9,15 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.util.List;
 
-public class JasonHandler {
+public class JsonHandler {
 
-    private static JasonHandler ourInstance = new JasonHandler();
+    private static JsonHandler ourInstance = new JsonHandler();
 
-    public static JasonHandler getInstance() {
+    public static JsonHandler getInstance() {
         return ourInstance;
     }
 
-    private JasonHandler() {
+    private JsonHandler() {
     }
 
 
@@ -28,7 +27,7 @@ public class JasonHandler {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         //1. Convert List of Person objects to JSON
-        String arrayToJson = (String) objectMapper.writeValueAsString(list);
+        String arrayToJson = objectMapper.writeValueAsString(list);
 
         return arrayToJson;
     }
