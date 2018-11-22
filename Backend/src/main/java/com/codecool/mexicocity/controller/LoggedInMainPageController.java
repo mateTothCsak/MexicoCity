@@ -24,6 +24,9 @@ public class LoggedInMainPageController extends HttpServlet {
         EntityManager em = MyEntityManager.getInstance().getEm();
         //int id = Integer.parseInt(request.getParameter("id"));
         Item item = em.find(Item.class, 1);
+
+
+
         String jsonString = JasonHandler.getInstance().jsonify(item);
 
 

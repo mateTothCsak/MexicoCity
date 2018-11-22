@@ -14,9 +14,10 @@ public class Admin {
 
     public static void main(String[] args) {
         Admin admin = new Admin();
+        admin.createDBConnection();
         admin.startJettyServer();
 
-        admin.createDBConnection();
+
     }
 
 
