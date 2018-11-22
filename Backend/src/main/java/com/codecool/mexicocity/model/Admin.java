@@ -97,4 +97,11 @@ public class Admin {
         em.close();
         emf.close();
     }
+
+    public void createNewUser(EntityManager entityManager, String email, String password){
+        Rooster rooster = new Rooster();
+        entityManager.persist(rooster);
+        User user = new User(email, password, rooster);
+        entityManager.persist(user);
+    }
 }
