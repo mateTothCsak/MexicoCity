@@ -38,6 +38,7 @@ public class LoggedInMainPageController extends HttpServlet {
         String jsonStringList = JasonHandler.getInstance().jsonifyList(roosters);
         response.setContentType("application/json;charset=UTF-8");
         ServletOutputStream out = response.getOutputStream();
+        response.setHeader("Access-Control-Allow-Origin", "*");
         out.print(jsonStringList);
     }
 

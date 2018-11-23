@@ -19,6 +19,7 @@ public class IndexController extends HttpServlet {
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
+        response.setHeader("Access-Control-Allow-Origin", "*");
         response.getWriter().println("{ \"status\": \"ok\"}");
     }
 }
