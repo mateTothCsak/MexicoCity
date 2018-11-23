@@ -14,29 +14,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/home"})
-public class LoggedInMainPageController extends HttpServlet {
-
+@WebServlet(urlPatterns = {"/freeshop"})
+public class FreeShopController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         EntityManager em = MyEntityManager.getInstance().getEm();
-        //long id = Long.parseLong(request.getParameter("id"));
-        //Rooster rooster = em.find(Rooster.class, id);
 
-        String hql = "SELECT r FROM Rooster AS r ORDER BY wonMatches DESC";
+        String hql = "SELECT i FROM Item AS i ORDER BY category ASC";
         Query query = (Query) em.createQuery(hql);
-        List roosters = query.list();
+        List items = query.list();
 
-
-        //String jsonString = JsonHandler.getInstance().jsonify(rooster);
-
-        String jsonStringList = JsonHandler.getInstance().jsonifyList(roosters);
+        String jsonStringList = JsonHandler.getInstance().jsonifyList(items);
         response.setContentType("application/json;charset=UTF-8");
         ServletOutputStream out = response.getOutputStream();
-        response.setHeader("Access-Control-Allow-Origin", "*");
         out.print(jsonStringList);
     }
 
