@@ -1,0 +1,21 @@
+.Button {
+    background-color: #8D241F;
+    border: none;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    margin: 10px;
+    font-weight: bold;
+    box-shadow: 5px 3px 3px black;
+}
+
+.Button:hover,
+.Button:focus{
+    transform: translateY(-0.25em);
+}
+
+.MainCTA{
+    color: #8D241F;
+}

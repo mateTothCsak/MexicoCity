@@ -1,0 +1,33 @@
+.Container{
+    padding: 40px 0;
+    width: 100%;
+    height: 400px;
+    background-color:#ECDDB4;
+    color: #131213;
+    font-size: 26px;
+    margin: auto;
+    display : flex;
+    justify-content: center;
+}
+
+
+.InfoBox{
+    margin: 10px 150px;
+    padding: 25px;
+}
+
+.InfoBox h2{
+    padding: 20px 20px 20px 0;
+}
+
+
+.LeftContent {
+    width: 80%;
+    flex: 0 0 50%;
+}
+
+.RightContent {
+    margin: 150px 0 0 0;
+    flex: 1;
+    text-align: center;
+}
