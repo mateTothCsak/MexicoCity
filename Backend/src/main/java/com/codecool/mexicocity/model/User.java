@@ -24,6 +24,7 @@ public class User {
     @JsonManagedReference
     private Rooster myRooster;
 
+    @Transient
     private String salt = "iocnqsmo23n";
 
 
