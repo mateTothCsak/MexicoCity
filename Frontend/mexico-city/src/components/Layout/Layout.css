@@ -1,4 +1,7 @@
-Content{
+.Content {
+    margin-top: 55px;
     font-family: Roboto;
-    font-size: 20px;
+    font-size: 50px;
+    color:#ECDDB4;
+    background-color: #ECDDB4;
 }
