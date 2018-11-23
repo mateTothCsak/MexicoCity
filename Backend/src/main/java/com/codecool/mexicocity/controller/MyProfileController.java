@@ -32,7 +32,9 @@ public class MyProfileController extends HttpServlet {
 
         response.setContentType("application/json;charset=UTF-8");
         ServletOutputStream out = response.getOutputStream();
-        out.print(userJsonString);
 
+        out.print(userJsonString);
     }
+
+
 }

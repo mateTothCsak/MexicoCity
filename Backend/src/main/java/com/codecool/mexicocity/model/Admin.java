@@ -35,6 +35,7 @@ public class Admin {
         handler.addServlet(LoggedInMainPageController.class, "/home");
         handler.addServlet(FreeShopController.class, "/freeshop");
         handler.addServlet(MyProfileController.class, "/myprofile");
+        handler.addServlet(RegistrationController.class, "/register");
 
 
         try {
