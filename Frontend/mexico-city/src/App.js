@@ -36,12 +36,12 @@ class App extends Component {
 
 
   render() {
-    let [ data, loading ] = [this.state.data, this.state.isLoading];
+    let [ data, loading, error ] = [this.state.data, this.state.isLoading, this.state.error];
 
     return (
       <div>
         <Layout>  
-          <MyMainPage allData={data} loading={loading} error={this.state.error}/>
+          <MyMainPage allData={data} loading={loading} error={error}/>
         </Layout> 
       </div>
     );
