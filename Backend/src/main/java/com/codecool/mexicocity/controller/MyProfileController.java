@@ -1,12 +1,10 @@
 package com.codecool.mexicocity.controller;
 
-import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.model.User;
 import com.codecool.mexicocity.util.JsonHandler;
-import com.codecool.mexicocity.util.MyEntityManager;
+import com.codecool.mexicocity.util.MyEntityManagerFactory;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +21,7 @@ public class MyProfileController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        EntityManager em = MyEntityManager.getInstance().getEm();
+        EntityManager em = MyEntityManagerFactory.getInstance().createEntityManager();
 
         Long id = Long.parseLong(request.getParameter("id"));
         User user = em.find(User.class, id);
