@@ -1,6 +1,7 @@
 package com.codecool.mexicocity.model;
 
 import com.codecool.mexicocity.controller.*;
+import com.codecool.mexicocity.service.UserService;
 import com.codecool.mexicocity.util.MyEntityManager;
 
 import com.codecool.mexicocity.util.MyEntityManager;
@@ -107,6 +108,8 @@ public class Admin {
         Rooster rooster = new Rooster();
         entityManager.persist(rooster);
         User user = new User(email, password, rooster);
+        UserService userService = new UserService();
+        userService.add(user);
         entityManager.persist(user);
     }
 }

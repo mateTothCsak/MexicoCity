@@ -26,6 +26,7 @@ public class FreeShopController extends HttpServlet {
         String hql = "SELECT i FROM Item AS i ORDER BY category ASC";
         Query query = (Query) em.createQuery(hql);
         List items = query.list();
+        em.close();
 
         String jsonStringList = JsonHandler.getInstance().jsonifyList(items);
         response.setContentType("application/json;charset=UTF-8");
