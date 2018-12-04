@@ -40,10 +40,8 @@ public class UserService {
     }
 
 
-    public void createUser(EntityManagerFactory emf, String email, String password, Rooster rooster) {
+    public void createUser(String email, String password, Rooster rooster) {
         User user = new User(email, password, rooster);
-        UserDao userDao = new UserDao(emf);
-        UserService userService = new UserService(userDao);
-        userService.add(user);
+        add(user);
     }
 }

@@ -33,18 +33,9 @@ public class RoosterService {
         return this.roosterDao.getAllObjects("Rooster");
     }
 
-    public void setRoosterDao(RoosterDao roosterDao) {
-        this.roosterDao = roosterDao;
-    }
-
-
-
-    public Rooster createRooster(EntityManagerFactory emf){
+    public Rooster createRooster(){
         Rooster rooster = new Rooster();
-        RoosterDao roosterDao = new RoosterDao(emf);
-        RoosterService roosterService = new RoosterService(roosterDao);
-        roosterService.add(rooster);
-
+        add(rooster);
         return rooster;
     }
 }
