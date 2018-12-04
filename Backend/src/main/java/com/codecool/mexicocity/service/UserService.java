@@ -22,22 +22,22 @@ public class UserService {
     public void add(User user) {
         this.userDao.add(user);
     }
-//
-//    public void remove(User user) {
-//        this.userDao.remove(user);
-//    }
-//
-//    public void getUserById(Long id) {
-//        this.userDao.getUserById(id);
-//    }
-//
-//    public List<User> getAllUser() {
-//        return this.userDao.getAllUser();
-//    }
-//
-//    public void setUserDao(UserDao userDao) {
-//        this.userDao = userDao;
-//    }
+
+    public void remove(User user) {
+        this.userDao.remove(user);
+    }
+
+    public void getUserById(Long id) {
+        this.userDao.getObjectById(id);
+    }
+
+    public List<User> getAllUser() {
+        return this.userDao.getAllObjects("User");
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
 
     public void createUser(EntityManagerFactory emf, String email, String password, Rooster rooster) {

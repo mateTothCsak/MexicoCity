@@ -8,62 +8,27 @@ import javax.persistence.*;
 
 import java.util.List;
 
-public class UserDao {
-
-//    @PersistenceContext(unitName = "player")
-    private EntityManagerFactory emf;
-
+public class UserDao extends BaseDao {
 
     public UserDao(EntityManagerFactory emf) {
-        this.emf = emf;
+        super(User.class, emf);
     }
 
 
-    public void add(User user){
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
 
+
+
+    public void updateUserPassword(User user, String password) {
         transaction.begin();
-        em.persist(user);
-
+        user.setPassword(password);
         transaction.commit();
-        em.close();
     }
 
-
-//    public void remove(User user) {
-//        transaction.begin();
-//        entityManager.remove(user);
-//        transaction.commit();
-//        entityManager.close();
-//    }
-//
-//    public User getUserById(Long id) {
-//        transaction.begin();
-//        User user = entityManager.find(User.class,id);
-//        transaction.commit();
-//        entityManager.close();
-//        return user;
-//    }
-//
-//    public List<User> getAllUser() {
-//        transaction.begin();
-//        String hql = "SELECT p FROM User AS p";
-//        Query query = (Query) entityManager.createQuery(hql);
-//        List users = query.list();
-//        return users;
-//    }
-
-//
-//    public void updateUserPassword(User user, String pw) {
-//        user.setPassword(pw);
-//    }
-//
-//    public void updateUserEmail(User user, String email) {
-//        transaction.begin();
-//        user.setEmail(email);
-//        transaction.commit();
-//    }
+    public void updateUserEmail(User user, String email) {
+        transaction.begin();
+        user.setEmail(email);
+        transaction.commit();
+    }
 
 
 }
