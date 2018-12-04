@@ -15,9 +15,6 @@ public class UserDao extends BaseDao {
     }
 
 
-
-
-
     public void updateUserPassword(User user, String password) {
         transaction.begin();
         user.setPassword(password);

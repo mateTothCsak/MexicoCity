@@ -44,7 +44,6 @@ public class RoosterService {
         RoosterDao roosterDao = new RoosterDao(emf);
         RoosterService roosterService = new RoosterService(roosterDao);
         roosterService.add(rooster);
-
         return rooster;
     }
 }
