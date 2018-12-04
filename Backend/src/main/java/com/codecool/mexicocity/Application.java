@@ -2,9 +2,11 @@ package com.codecool.mexicocity;
 
 
 import com.codecool.mexicocity.controller.*;
+import com.codecool.mexicocity.dao.FightDao;
 import com.codecool.mexicocity.dao.ItemDao;
 import com.codecool.mexicocity.dao.RoosterDao;
 import com.codecool.mexicocity.dao.UserDao;
+import com.codecool.mexicocity.service.FightService;
 import com.codecool.mexicocity.util.InitializeShop;
 import com.codecool.mexicocity.service.ItemService;
 import com.codecool.mexicocity.service.RoosterService;
@@ -29,6 +31,7 @@ public class Application implements ServletContextListener {
         RoosterService roosterService = new RoosterService(new RoosterDao(emf));
         UserService userService = new UserService(new UserDao(emf));
         ItemService itemService = new ItemService(new ItemDao(emf));
+        FightService fightService = new FightService(new FightDao(emf));
 
         //Shop fill up
         InitializeShop initializeShop = new InitializeShop(roosterService, userService , itemService);
