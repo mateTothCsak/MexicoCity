@@ -36,10 +36,4 @@ public class FightService {
         this.fightDao = fightDao;
     }
 
-    public void saveFight(EntityManagerFactory emf, Fight fight){
-        FightDao fightDao = new FightDao(emf);
-        FightService fightService = new FightService(fightDao);
-        fightService.add(fight);
-    }
-
 }

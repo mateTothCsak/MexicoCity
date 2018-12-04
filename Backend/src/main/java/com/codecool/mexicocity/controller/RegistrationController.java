@@ -23,13 +23,11 @@ import java.io.IOException;
 public class RegistrationController extends HttpServlet {
     RoosterService roosterService;
     UserService userService;
-    EntityManagerFactory emf;
 
 
-    public RegistrationController(EntityManagerFactory emf, RoosterService roosterService, UserService userService) {
+    public RegistrationController(RoosterService roosterService, UserService userService) {
         this.roosterService = roosterService;
         this.userService = userService;
-        this.emf = emf;
     }
 
 
@@ -42,14 +40,14 @@ public class RegistrationController extends HttpServlet {
         String email = node.get("email").textValue();
         String password = node.get("password").textValue();
 
-        createProfile(emf, email, password);
+        createProfile(email, password);
     }
 
 
 
-    public void createProfile(EntityManagerFactory emf, String email, String password){
-        Rooster rooster = roosterService.createRooster(emf);
-        userService.createUser(emf, email, password, rooster);
+    public void createProfile(String email, String password){
+        Rooster rooster = roosterService.createRooster();
+        userService.createUser(email, password, rooster);
     }
 
 }
