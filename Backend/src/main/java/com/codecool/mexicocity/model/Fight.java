@@ -47,9 +47,6 @@ public class Fight {
     public void fightStart(){}
 
 
-
-
-
     private Quiz createQuiz(int round){
         return new Quiz(round);
     }
