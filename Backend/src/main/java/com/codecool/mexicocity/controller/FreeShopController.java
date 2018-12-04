@@ -1,7 +1,7 @@
 package com.codecool.mexicocity.controller;
 
 import com.codecool.mexicocity.util.JsonHandler;
-import com.codecool.mexicocity.util.MyEntityManager;
+import com.codecool.mexicocity.util.MyEntityManagerFactory;
 import org.hibernate.query.Query;
 
 import javax.persistence.EntityManager;
@@ -21,11 +21,12 @@ public class FreeShopController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        EntityManager em = MyEntityManager.getInstance().getEm();
+        EntityManager em = MyEntityManagerFactory.getInstance().createEntityManager();
 
         String hql = "SELECT i FROM Item AS i ORDER BY category ASC";
         Query query = (Query) em.createQuery(hql);
         List items = query.list();
+        em.close();
 
         String jsonStringList = JsonHandler.getInstance().jsonifyList(items);
         response.setContentType("application/json;charset=UTF-8");

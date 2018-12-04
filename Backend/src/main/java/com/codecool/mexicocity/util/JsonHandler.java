@@ -5,7 +5,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -62,5 +65,22 @@ public class JsonHandler {
         catch (JsonMappingException e) { e.printStackTrace(); }
         catch (IOException e) { e.printStackTrace(); }
         return null;
+    }
+
+
+    public ObjectNode buildObjectFromJson(HttpServletRequest request) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader = request.getReader();
+        try {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append('\n');
+            }
+        } finally {
+            reader.close();
+        }
+        String jsonstring = sb.toString();
+
+        return new ObjectMapper().readValue(jsonstring, ObjectNode.class);
     }
 }

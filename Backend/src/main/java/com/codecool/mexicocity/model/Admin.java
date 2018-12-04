@@ -1,54 +1,27 @@
 package com.codecool.mexicocity.model;
 
-import com.codecool.mexicocity.controller.*;
-import com.codecool.mexicocity.util.MyEntityManager;
-
-import com.codecool.mexicocity.util.MyEntityManager;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
+import com.codecool.mexicocity.service.RoosterService;
+import com.codecool.mexicocity.service.UserService;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Admin {
+    RoosterService roosterService;
+    UserService userService;
 
-    public static void main(String[] args) {
-        Admin admin = new Admin();
-        //admin.createDBConnection();
-        EntityManager em = MyEntityManager.getInstance().getEm();
 
-        admin.createShop(em);
-        em.clear();
-
-        admin.startJettyServer();
-        //em.close();
-
+    public Admin() {
+        this.roosterService = new RoosterService();
+        this.userService = new UserService();
     }
 
-
-    private void startJettyServer(){
-        //JettyServer server = new JettyServer();
-        Server server = new Server(8090);
-        ServletContextHandler handler = new ServletContextHandler(server, "/");
-        handler.addServlet(IndexController.class, "/");
-        handler.addServlet(LoggedInMainPageController.class, "/home");
-        handler.addServlet(FreeShopController.class, "/freeshop");
-        handler.addServlet(MyProfileController.class, "/myprofile");
-        handler.addServlet(RegistrationController.class, "/register");
-
-
-        try {
-            server.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
     private List<Item> initDatabase(EntityManager em) {
         EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
+//        transaction.begin();
 
         List<Item> items = new ArrayList<>();
 
@@ -76,12 +49,8 @@ public class Admin {
 
         //Users
 
-        createNewUser(em, "tocsi", "admin1");
-        createNewUser(em, "stefan", "admin2");
-        createNewUser(em, "henry", "admin3");
-        createNewUser(em, "mate", "admin4");
 
-        transaction.commit();
+//        transaction.commit();
         items.add(stick);
         return items;
     }
@@ -92,21 +61,4 @@ public class Admin {
     }
 
 
-
-    private void createDBConnection(){
-        EntityManager em = MyEntityManager.getInstance().getEm();
-
-        createShop(em);
-
-        em.clear();
-
-        em.close();
-    }
-
-    public void createNewUser(EntityManager entityManager, String email, String password){
-        Rooster rooster = new Rooster();
-        entityManager.persist(rooster);
-        User user = new User(email, password, rooster);
-        entityManager.persist(user);
-    }
 }

@@ -1,7 +1,7 @@
 package com.codecool.mexicocity.controller;
 
 import com.codecool.mexicocity.util.JsonHandler;
-import com.codecool.mexicocity.util.MyEntityManager;
+import com.codecool.mexicocity.util.MyEntityManagerFactory;
 import org.hibernate.query.Query;
 
 import javax.persistence.EntityManager;
@@ -22,7 +22,8 @@ public class LoggedInMainPageController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        EntityManager em = MyEntityManager.getInstance().getEm();
+        EntityManager em = MyEntityManagerFactory.getInstance().createEntityManager();
+
         //long id = Long.parseLong(request.getParameter("id"));
         //Rooster rooster = em.find(Rooster.class, id);
 
