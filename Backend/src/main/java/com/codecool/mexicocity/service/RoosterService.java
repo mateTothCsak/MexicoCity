@@ -21,21 +21,21 @@ public class RoosterService {
         this.roosterDao.add(rooster);
     }
 
-//    public void remove(Rooster rooster) {
-//        this.roosterDao.remove(rooster);
-//    }
-//
-//    public void getRoosterById(Long id) {
-//        this.roosterDao.getRoosterById(id);
-//    }
-//
-//    public List<Rooster> getAllRooster() {
-//        return this.roosterDao.getAllRooster();
-//    }
-//
-//    public void setRoosterDao(RoosterDao roosterDao) {
-//        this.roosterDao = roosterDao;
-//    }
+    public void remove(Rooster rooster) {
+        this.roosterDao.remove(rooster);
+    }
+
+    public void getRoosterById(Long id) {
+        this.roosterDao.getObjectById(id);
+    }
+
+    public List<Rooster> getAllRooster() {
+        return this.roosterDao.getAllObjects("Rooster");
+    }
+
+    public void setRoosterDao(RoosterDao roosterDao) {
+        this.roosterDao = roosterDao;
+    }
 
 
 
