@@ -16,6 +16,10 @@ public class Rooster {
     private int experience;
     private int level;
     private int gold;
+    @OneToOne(mappedBy = "wonRooster")
+    private Fight wonFight;
+    @OneToOne(mappedBy = "lostRooster")
+    private Fight lostFight;
 
     @OneToMany(mappedBy = "rooster", fetch = FetchType.EAGER)
     private List<Item> roosterItems = new ArrayList<>();
@@ -182,9 +186,50 @@ public class Rooster {
         return fight;
     }
 
-    //
-    //
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public void setWonMatches(int wonMatches) {
+        this.wonMatches = wonMatches;
+    }
+
+    public void setLostMatches(int lostMatches) {
+        this.lostMatches = lostMatches;
+    }
+
+    public void setWinRatio(int winRatio) {
+        this.winRatio = winRatio;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    //
+    //
+    public Fight getWonFight() {
+        return wonFight;
+    }
+
+    public void setWonFight(Fight wonFight) {
+        this.wonFight = wonFight;
+    }
+
+    public Fight getLostFight() {
+        return lostFight;
+    }
+
+    public void setLostFight(Fight lostFight) {
+        this.lostFight = lostFight;
+    }
 
     @Override
     public String toString() {
