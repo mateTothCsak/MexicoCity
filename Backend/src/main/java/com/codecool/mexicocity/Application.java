@@ -39,8 +39,8 @@ public class Application implements ServletContextListener {
 
         ServletContext context = sce.getServletContext();
         context.addServlet("Index", new IndexController()).addMapping("/");
-        context.addServlet("LoggedInHome", new LoggedInMainPageController()).addMapping("/home");
-        context.addServlet("MyProfile", new MyProfileController()).addMapping("/myprofile");
+        context.addServlet("LoggedInHome", new LoggedInMainPageController(roosterService)).addMapping("/home");
+        context.addServlet("MyProfile", new MyProfileController(userService)).addMapping("/myprofile");
         context.addServlet("FreeShop", new FreeShopController(itemService, emf)).addMapping("/shop");
         context.addServlet("Registration", new RegistrationController(roosterService, userService)).addMapping("/register");
         context.addServlet("Fight", new FightController(fightService,roosterService)).addMapping("/fight");}

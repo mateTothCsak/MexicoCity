@@ -25,8 +25,8 @@ public class RoosterService {
         this.roosterDao.remove(rooster);
     }
 
-    public void getRoosterById(Long id) {
-        this.roosterDao.getObjectById(id);
+    public Rooster getRoosterById(Long id) {
+        return (Rooster) this.roosterDao.getObjectById(id);
     }
 
     public List<Rooster> getAllRooster() {
@@ -37,5 +37,9 @@ public class RoosterService {
         Rooster rooster = new Rooster();
         add(rooster);
         return rooster;
+    }
+
+    public List<Rooster> getTopRoosters() {
+        return this.roosterDao.getTopRoosters();
     }
 }

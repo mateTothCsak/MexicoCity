@@ -17,7 +17,7 @@ public class Rooster {
     private int level;
     private int gold;
 
-    @OneToMany(mappedBy = "rooster")
+    @OneToMany(mappedBy = "rooster", fetch = FetchType.EAGER)
     private List<Item> roosterItems = new ArrayList<>();
 
     //@JsonManagedReference is for Jackson to BETTER handle jackson
