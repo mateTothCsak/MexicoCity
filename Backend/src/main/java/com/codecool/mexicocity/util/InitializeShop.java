@@ -41,8 +41,12 @@ public class InitializeShop {
         itemService.add(new Item("Soldier Vest", "Prrrotection 100", 450, "image/vest.jpg", Category.ARMOR));
 
         Rooster rooster = roosterService.createRooster();
-        userService.createUser("asdasd","asdasd",rooster);
+        userService.createUser("henry","henry",rooster);
         Rooster rooster1 = roosterService.createRooster();
-        userService.createUser("asd3333asd","asda333sd",rooster1);
+        userService.createUser("stefan","stefan",rooster1);
+        Rooster rooster2 = roosterService.createRooster();
+        userService.createUser("tocsi","tocsi",rooster2);
+        Rooster rooster3 = roosterService.createRooster();
+        userService.createUser("mate","mate",rooster3);
     }
 }
