@@ -1,5 +1,7 @@
 package com.codecool.mexicocity.controller;
 
+import com.codecool.mexicocity.model.Rooster;
+import com.codecool.mexicocity.service.RoosterService;
 import com.codecool.mexicocity.util.JsonHandler;
 import com.codecool.mexicocity.util.MyEntityManagerFactory;
 import org.hibernate.query.Query;
@@ -14,27 +16,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/home"})
 public class LoggedInMainPageController extends HttpServlet {
 
+    private RoosterService roosterService;
+
+    public LoggedInMainPageController(RoosterService roosterService) {
+        this.roosterService = roosterService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        EntityManager em = MyEntityManagerFactory.getInstance().createEntityManager();
+        List<Rooster> topRoosters = roosterService.getTopRoosters();
 
-        //long id = Long.parseLong(request.getParameter("id"));
-        //Rooster rooster = em.find(Rooster.class, id);
-
-        String hql = "SELECT r FROM Rooster AS r ORDER BY wonMatches DESC";
-        Query query = (Query) em.createQuery(hql);
-        List roosters = query.list();
-
-
-        //String jsonString = JsonHandler.getInstance().jsonify(rooster);
-
-        String jsonStringList = JsonHandler.getInstance().jsonifyList(roosters);
+        String jsonStringList = JsonHandler.getInstance().jsonifyList(topRoosters);
         response.setContentType("application/json;charset=UTF-8");
         ServletOutputStream out = response.getOutputStream();
         response.setHeader("Access-Control-Allow-Origin", "*");

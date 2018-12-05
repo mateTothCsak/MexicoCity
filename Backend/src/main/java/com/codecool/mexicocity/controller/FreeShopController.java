@@ -34,6 +34,4 @@ public class FreeShopController extends HttpServlet {
         out.print(jsonStringList);
     }
 
-
-
 }

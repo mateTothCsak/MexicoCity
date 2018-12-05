@@ -15,6 +15,10 @@ public class Fight {
     private Date timeOfFight;
     @Transient
     private Timer timer;
+    @OneToOne
+    private Rooster wonRooster;
+    @OneToOne
+    private Rooster lostRooster;
     private int rounds;
     private int experience;
     private int gold;
@@ -39,12 +43,12 @@ public class Fight {
         this.timeOfFight = new Date();
         rounds = 3;
         rooster1Health = 3;
-        rooster1Health = 3;
     }
 
 
-    // runs all rounds creates com.codecool.mexicocity.model.Quiz
-    public void fightStart(){}
+    public void fightStart(Integer answer){
+
+    }
 
 
     private Quiz createQuiz(int round){
@@ -52,15 +56,36 @@ public class Fight {
     }
 
     private boolean isRoostersAlive(){
-        return false;
+        if (rooster1Health <=0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    private void increaseExperience(){}
+    private void increaseExperience(){
+    }
     private void increaseGold(){}
     private void loseHealth(){}
 
     public long getId() {
         return id;
+    }
+
+    public Rooster getWonRooster() {
+        return wonRooster;
+    }
+
+    public void setWonRooster(Rooster wonRooster) {
+        this.wonRooster = wonRooster;
+    }
+
+    public Rooster getLostRooster() {
+        return lostRooster;
+    }
+
+    public void setLostRooster(Rooster lostRooster) {
+        this.lostRooster = lostRooster;
     }
 
     public Date getTimeOfFight() {

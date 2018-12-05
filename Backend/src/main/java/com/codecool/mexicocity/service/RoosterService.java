@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 public class RoosterService {
+
     private RoosterDao roosterDao;
 
     public RoosterService(){ }
@@ -25,8 +26,8 @@ public class RoosterService {
         this.roosterDao.remove(rooster);
     }
 
-    public void getRoosterById(Long id) {
-        this.roosterDao.getObjectById(id);
+    public Rooster getRoosterById(Long id) {
+        return (Rooster) this.roosterDao.getObjectById(id);
     }
 
     public List<Rooster> getAllRooster() {
@@ -38,4 +39,40 @@ public class RoosterService {
         add(rooster);
         return rooster;
     }
+
+    public List<Rooster> getTopRoosters() {
+        return this.roosterDao.getTopRoosters();
+    }
+
+    public void updateRoosterGold(Rooster rooster, int gold) {
+        this.roosterDao.updateRoosterGold(rooster,gold);
+    }
+
+    public void updateRoosterExperience(Rooster rooster, int experience) {
+        this.roosterDao.updateExperience(rooster,experience);
+    }
+
+    public void updateRoosterLevel(Rooster rooster, int level) {
+        this.roosterDao.updateLevel(rooster,level);
+    }
+
+    public void checkLevelUp(Rooster rooster) {
+        if (rooster.getExperience() >= 100) {
+            updateRoosterLevel(rooster,rooster.getLevel() + 1);
+            roosterDao.setExperienceToZero(rooster);
+            roosterDao.updateImage(rooster);
+        }
+    }
+
+    public void updateWonMatches(Rooster rooster) {
+        this.roosterDao.updateRoosterWonMatches(rooster);
+        this.roosterDao.updateRoosterWinRatio(rooster);
+    }
+
+    public void updateLostMatches(Rooster rooster) {
+        this.roosterDao.updateRoosterLostMatches(rooster);
+        this.roosterDao.updateRoosterWinRatio(rooster);
+    }
+
+
 }
