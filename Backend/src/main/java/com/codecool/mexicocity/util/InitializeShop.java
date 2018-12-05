@@ -2,6 +2,7 @@ package com.codecool.mexicocity.util;
 
 import com.codecool.mexicocity.model.Category;
 import com.codecool.mexicocity.model.Item;
+import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.service.ItemService;
 import com.codecool.mexicocity.service.RoosterService;
 import com.codecool.mexicocity.service.UserService;
@@ -38,5 +39,14 @@ public class InitializeShop {
         itemService.add(new Item("Soldier helmet", "It is useful sometimes", 100, "image/soldierHelmet.jpg", Category.HEADGEAR));
         itemService.add(new Item("Soldier Kalasnikov", "Bumm Bumm", 1000, "image/kalasnikov.jpg", Category.WEAPON));
         itemService.add(new Item("Soldier Vest", "Prrrotection 100", 450, "image/vest.jpg", Category.ARMOR));
+
+        Rooster rooster = roosterService.createRooster();
+        userService.createUser("henry","henry",rooster);
+        Rooster rooster1 = roosterService.createRooster();
+        userService.createUser("stefan","stefan",rooster1);
+        Rooster rooster2 = roosterService.createRooster();
+        userService.createUser("tocsi","tocsi",rooster2);
+        Rooster rooster3 = roosterService.createRooster();
+        userService.createUser("mate","mate",rooster3);
     }
 }

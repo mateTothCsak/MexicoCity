@@ -1,11 +1,17 @@
 package com.codecool.mexicocity.dao;
 
 import com.codecool.mexicocity.util.TransactionHandler;
+import org.hibernate.Criteria;
 import org.hibernate.query.Query;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public abstract class BaseDao<T> {
@@ -46,6 +52,48 @@ public abstract class BaseDao<T> {
         em.close();
         return object;
     }
+
+
+    public Object getObjectByField(Class entityClass, String fieldName,  String fieldValue){
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+        Root<Object> root = criteriaQuery.from(entityClass);
+        criteriaQuery.select(root);
+
+        ParameterExpression<String> params = criteriaBuilder.parameter(String.class);
+        criteriaQuery.where(criteriaBuilder.equal(root.get(fieldName), params));
+
+
+        TypedQuery<Object> query = em.createQuery(criteriaQuery);
+        query.setParameter(params, fieldValue);
+
+        List<Object> queryResult = query.getResultList();
+
+        Object returnObject = null;
+
+        if (!queryResult.isEmpty()) {
+            returnObject = queryResult.get(0);
+        }
+        em.close();
+        return returnObject;
+
+    }
+
+
+    /*
+    ALTERNATE OPTION IN CASE GETOBJECTBYFIELD WOULD NEED REFACTOR
+
+    public Object getEmail(String email){
+        EntityManager em = emf.createEntityManager();
+        Query query = (Query) em.createQuery("from User u where u.email = :email ");
+        query.setParameter("email", email);
+        List list = query.list();
+        em.close();
+        return list.get(0);
+    }
+    */
+
 
 
 }

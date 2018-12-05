@@ -27,8 +27,12 @@ public class UserService {
         this.userDao.remove(user);
     }
 
-    public void getUserById(Long id) {
-        this.userDao.getObjectById(id);
+    public User getUserById(Long id) {
+        return (User) this.userDao.getObjectById(id);
+    }
+
+    public User getUserByEmail(String email){
+        return (User) this.userDao.getObjectByField(User.class, "email", email);
     }
 
     public List<User> getAllUser() {
