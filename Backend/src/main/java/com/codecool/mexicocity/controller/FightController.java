@@ -35,4 +35,34 @@ public class FightController extends HttpServlet {
 
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        ObjectNode node = JsonHandler.getInstance().buildObjectFromJson(request);
+
+        int gold = Integer.parseInt(node.get("gold").textValue());
+        int experience = Integer.parseInt(node.get("experience").textValue());
+
+
+        String wonRoosterJson = node.get("wonFight").toString();
+
+        Rooster wonRooster = (Rooster) JsonHandler.getInstance().objectFromJson(wonRoosterJson,Rooster.class);
+
+        roosterService.updateRoosterGold(wonRooster,gold);
+        roosterService.updateRoosterExperience(wonRooster,experience);
+
+        roosterService.checkLevelUp(wonRooster);
+        roosterService.updateWonMatches(wonRooster);
+
+        String lostRoosterJson = node.get("lostFight").toString();
+
+        Rooster lostRooster = (Rooster) JsonHandler.getInstance().objectFromJson(lostRoosterJson,Rooster.class);
+
+        roosterService.updateLostMatches(lostRooster);
+
+
+    }
+
+
 }
