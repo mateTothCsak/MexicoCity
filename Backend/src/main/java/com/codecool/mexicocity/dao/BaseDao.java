@@ -25,6 +25,10 @@ public abstract class BaseDao<T> {
         TransactionHandler.handleTransactionVoid(em -> em.persist(object));
     }
 
+    public void update(T object){
+        TransactionHandler.handleTransactionVoid(em -> em.merge(object));
+    }
+
     public void remove(T object){ TransactionHandler.handleTransactionVoid(em -> em.remove(object)); }
 
     public List<Object> getAllObjects(String entityName) {

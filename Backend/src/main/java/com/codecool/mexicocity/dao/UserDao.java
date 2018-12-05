@@ -16,15 +16,13 @@ public class UserDao extends BaseDao {
 
 
     public void updateUserPassword(User user, String password) {
-        transaction.begin();
         user.setPassword(password);
-        transaction.commit();
+        update(user);
     }
 
     public void updateUserEmail(User user, String email) {
-        transaction.begin();
         user.setEmail(email);
-        transaction.commit();
+        update(user);
     }
 
 

@@ -215,7 +215,21 @@ public class Rooster {
     }
     //
     //
+    public Fight getWonFight() {
+        return wonFight;
+    }
 
+    public void setWonFight(Fight wonFight) {
+        this.wonFight = wonFight;
+    }
+
+    public Fight getLostFight() {
+        return lostFight;
+    }
+
+    public void setLostFight(Fight lostFight) {
+        this.lostFight = lostFight;
+    }
 
     @Override
     public String toString() {

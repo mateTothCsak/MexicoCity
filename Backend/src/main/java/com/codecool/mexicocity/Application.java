@@ -34,8 +34,8 @@ public class Application implements ServletContextListener {
         FightService fightService = new FightService(new FightDao(emf));
 
         //Shop fill up
-//        InitializeShop initializeShop = new InitializeShop(roosterService, userService , itemService);
-//        initializeShop.initDatabase();
+        InitializeShop initializeShop = new InitializeShop(roosterService, userService , itemService);
+        initializeShop.initDatabase();
 
         ServletContext context = sce.getServletContext();
         context.addServlet("Index", new IndexController()).addMapping("/");

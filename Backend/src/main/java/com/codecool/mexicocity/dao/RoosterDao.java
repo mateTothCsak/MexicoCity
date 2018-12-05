@@ -30,22 +30,19 @@ public class RoosterDao extends BaseDao {
     }
 
     public void updateRoosterGold(Rooster rooster, int gold) {
-        transaction.begin();
-        rooster.setGold(rooster.getGold()+gold);
-        transaction.commit();
+        rooster.setGold(rooster.getGold() + gold);
+        update(rooster);
     }
 
     public void updateExperience(Rooster rooster, int experience) {
-        transaction.begin();
         rooster.setExperience(rooster.getExperience()+experience);
-        transaction.commit();
+        update(rooster);
     }
 
 
     public void updateLevel(Rooster rooster, int level) {
-        transaction.begin();
         rooster.setLevel(rooster.getLevel()+level);
-        transaction.commit();
+        update(rooster);
     }
 
     public int getRoosterLevel(Rooster rooster) {
@@ -58,37 +55,34 @@ public class RoosterDao extends BaseDao {
 
 
     public void setExperienceToZero(Rooster rooster) {
-        transaction.begin();
         rooster.setExperience(0);
-        transaction.commit();
+        update(rooster);
     }
 
     public void updateImage(Rooster rooster) {
-        transaction.begin();
         String image = "resources/img/pipi"+rooster.getLevel()+ ".jpg";
         rooster.setImage(image);
-        transaction.commit();
+        update(rooster);
     }
 
 
     public void updateRoosterWonMatches(Rooster rooster) {
-        transaction.begin();
         rooster.setWonMatches(rooster.getWonMatches()+1);
-        transaction.commit();
+        update(rooster);
     }
 
 
     public void updateRoosterLostMatches(Rooster rooster) {
-        transaction.begin();
         rooster.setLostMatches(rooster.getLostMatches()+1);
-        transaction.commit();
+        update(rooster);
     }
 
 
     public void updateRoosterWinRatio(Rooster rooster) {
-        transaction.begin();
-        rooster.setWinRatio(rooster.getWonMatches()/rooster.getLostMatches());
-        transaction.commit();
+        float totalMatches = rooster.getLostMatches() + rooster.getWonMatches();
+        float ratio = rooster.getWonMatches()/totalMatches;
+        rooster.setWinRatio((int) (ratio * 100));
+        update(rooster);
     }
 
 

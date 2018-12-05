@@ -1,5 +1,6 @@
 package com.codecool.mexicocity.controller;
 
+import com.codecool.mexicocity.model.Fight;
 import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.service.FightService;
 import com.codecool.mexicocity.service.RoosterService;
@@ -29,9 +30,12 @@ public class FightController extends HttpServlet {
 
 
         String jsonStringList = JsonHandler.getInstance().jsonifyList(fightService.generateFight());
+
+        String fightJsonString = JsonHandler.getInstance().jsonify(new Fight());
+
         response.setContentType("application/json;charset=UTF-8");
         ServletOutputStream out = response.getOutputStream();
-        out.print(jsonStringList);
+        out.print(fightJsonString);
 
     }
 
@@ -41,11 +45,13 @@ public class FightController extends HttpServlet {
 
         ObjectNode node = JsonHandler.getInstance().buildObjectFromJson(request);
 
-        int gold = Integer.parseInt(node.get("gold").textValue());
-        int experience = Integer.parseInt(node.get("experience").textValue());
+        Fight fight = (Fight) JsonHandler.getInstance().objectFromJson(node.toString(), Fight.class);
+        fightService.add(fight);
 
+        int gold = node.get("gold").intValue();
+        int experience = node.get("experience").intValue();
 
-        String wonRoosterJson = node.get("wonFight").toString();
+        String wonRoosterJson = node.get("wonRooster").toString();
 
         Rooster wonRooster = (Rooster) JsonHandler.getInstance().objectFromJson(wonRoosterJson,Rooster.class);
 
@@ -55,7 +61,7 @@ public class FightController extends HttpServlet {
         roosterService.checkLevelUp(wonRooster);
         roosterService.updateWonMatches(wonRooster);
 
-        String lostRoosterJson = node.get("lostFight").toString();
+        String lostRoosterJson = node.get("lostRooster").toString();
 
         Rooster lostRooster = (Rooster) JsonHandler.getInstance().objectFromJson(lostRoosterJson,Rooster.class);
 
