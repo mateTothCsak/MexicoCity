@@ -32,7 +32,7 @@ public class InitializeShop {
         itemService.add(new Item("Pimp Stick", "Nice pimp stick", 1000, "image/pimpStick.jpg", Category.WEAPON));
         itemService.add(new Item("Pimp Hat", "Beautiful pimp hat", 2500, "image/pimpHat.jpg", Category.HEADGEAR));
         itemService.add(new Item("Pimp Fur", "Nice pimp warm coat", 1000, "image/pimpFur.jpg", Category.ARMOR));
-        itemService.add(new Item("Seal-Ring", "", 1000, "image/seal-ring.jpg", Category.RINGS));
+        itemService.add(new Item("Seal-Ring", "Hot pimp ring", 1000, "image/seal-ring.jpg", Category.RINGS));
 
         //Soldier
 

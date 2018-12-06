@@ -1,9 +1,11 @@
 package com.codecool.mexicocity.controller;
 
+import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.model.User;
 import com.codecool.mexicocity.service.UserService;
 import com.codecool.mexicocity.util.JsonHandler;
 import com.codecool.mexicocity.util.MyEntityManagerFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -36,6 +38,20 @@ public class MyProfileController extends HttpServlet {
         ServletOutputStream out = response.getOutputStream();
 
         out.print(userJsonString);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        ObjectNode node = JsonHandler.getInstance().buildObjectFromJson(request);
+
+        String roosterJson = node.get("myRooster").toString();
+        System.out.println(roosterJson);
+
+        Rooster rooster = (Rooster) JsonHandler.getInstance().objectFromJson(roosterJson, Rooster.class);
+        System.out.println(rooster.toString());
+
     }
 
 

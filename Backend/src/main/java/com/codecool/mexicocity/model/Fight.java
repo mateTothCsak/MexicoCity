@@ -15,6 +15,10 @@ public class Fight {
     private Date timeOfFight;
     @Transient
     private Timer timer;
+    @OneToOne
+    private Rooster wonRooster;
+    @OneToOne
+    private Rooster lostRooster;
     private int rounds;
     private int experience;
     private int gold;
@@ -66,6 +70,22 @@ public class Fight {
 
     public long getId() {
         return id;
+    }
+
+    public Rooster getWonRooster() {
+        return wonRooster;
+    }
+
+    public void setWonRooster(Rooster wonRooster) {
+        this.wonRooster = wonRooster;
+    }
+
+    public Rooster getLostRooster() {
+        return lostRooster;
+    }
+
+    public void setLostRooster(Rooster lostRooster) {
+        this.lostRooster = lostRooster;
     }
 
     public Date getTimeOfFight() {
