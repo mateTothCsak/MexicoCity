@@ -37,6 +37,10 @@ public class RegistrationController extends HttpServlet {
 
         ObjectNode node = JsonHandler.getInstance().buildObjectFromJson(request);
 
+//        response.setHeader("Access-Control-Allow-Origin", "*");
+//        response.setHeader("Access-Control-Allow-Methods", "POST");
+//        response.addHeader("Access-Control-Allow-Credentials", "true");
+
         String email = node.get("email").textValue();
         String password = node.get("password").textValue();
 
