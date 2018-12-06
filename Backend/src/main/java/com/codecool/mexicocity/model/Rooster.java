@@ -21,12 +21,13 @@ public class Rooster {
     @OneToOne(mappedBy = "lostRooster")
     private Fight lostFight;
 
-    @OneToMany(mappedBy = "rooster", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    //@JsonBackReference
     private List<Item> roosterItems = new ArrayList<>();
 
     //@JsonManagedReference is for Jackson to BETTER handle jackson
     //the forward part of reference – the one that gets serialized normally
-    @OneToOne(mappedBy = "myRooster",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "myRooster",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
     private User user;
 
@@ -74,16 +75,9 @@ public class Rooster {
         return 0;
     }
 
-    //Calls addItems() and Pay() methods
-    public void buyItem(Item item){
-        if(isEnoughGold(item)){
-            addItems(item);
-        }
-    }
-
     // Adds item to shopItems
-    private void addItems(Item item){
-        //TODO
+    public void addItems(Item item){
+        this.roosterItems.add((item));
     }
 
 
@@ -94,11 +88,6 @@ public class Rooster {
         return false;
     }
 
-
-    // Calculates winRatio
-    private void calculateWinRatio(){
-        //TODO
-    }
 
 
     // METHODS FOR FIGHTS
