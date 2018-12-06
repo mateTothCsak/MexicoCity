@@ -7,7 +7,7 @@ import com.codecool.mexicocity.service.RoosterService;
 import com.codecool.mexicocity.util.JsonHandler;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -47,10 +47,15 @@ public class FreeShopController extends HttpServlet {
         String itemJson = node.get("item").toString();
         String roosterJson = node.get("rooster").toString();
 
+        try {
         Item item = (Item) JsonHandler.getInstance().objectFromJson(itemJson, Item.class);
         Rooster rooster = (Rooster) JsonHandler.getInstance().objectFromJson(roosterJson, Rooster.class);
-
         roosterService.buyItem(rooster, item);
+        } catch (RollbackException ex){
+            System.out.println("Wrong Item Json or Rooster Json");
+        }
+
+
     }
 
 }
