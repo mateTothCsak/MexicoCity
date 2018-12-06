@@ -1,9 +1,13 @@
 package com.codecool.mexicocity.controller;
 
+import com.codecool.mexicocity.model.Item;
+import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.service.ItemService;
+import com.codecool.mexicocity.service.RoosterService;
 import com.codecool.mexicocity.util.JsonHandler;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -15,11 +19,11 @@ import java.util.List;
 public class FreeShopController extends HttpServlet {
 
     private ItemService itemService;
-    private EntityManagerFactory emf;
+    private RoosterService roosterService;
 
-    public FreeShopController(ItemService itemService, EntityManagerFactory emf) {
+    public FreeShopController(ItemService itemService, RoosterService roosterService) {
         this.itemService = itemService;
-        this.emf = emf;
+        this.roosterService = roosterService;
     }
 
     @Override
@@ -34,6 +38,24 @@ public class FreeShopController extends HttpServlet {
         out.print(jsonStringList);
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        ObjectNode node = JsonHandler.getInstance().buildObjectFromJson(request);
+
+        String itemJson = node.get("item").toString();
+        String roosterJson = node.get("rooster").toString();
+
+        try {
+        Item item = (Item) JsonHandler.getInstance().objectFromJson(itemJson, Item.class);
+        Rooster rooster = (Rooster) JsonHandler.getInstance().objectFromJson(roosterJson, Rooster.class);
+        roosterService.buyItem(rooster, item);
+        } catch (RollbackException ex){
+            System.out.println("Wrong Item Json or Rooster Json");
+        }
+
+
+    }
 
 }

@@ -44,12 +44,6 @@ public class RegistrationController extends HttpServlet {
         String email = node.get("email").textValue();
         String password = node.get("password").textValue();
 
-        createProfile(email, password);
-    }
-
-
-
-    public void createProfile(String email, String password){
         Rooster rooster = roosterService.createRooster();
         userService.createUser(email, password, rooster);
     }

@@ -49,7 +49,7 @@ class App extends Component {
               <Route exact path="/" render={() => <MyMainPage/>} />
               <Route exact path="/home" render={() => <Home user={user}/>} />
             </Fragment>
-          </Router> 
+          </Router>
       </div>
     );
   }
