@@ -17,8 +17,8 @@ public class Item {
     private int price;
     private String image;
 
-    @ManyToOne()
-    private Rooster rooster;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Rooster> roosters;
 
     @Enumerated(EnumType.STRING)
     private Category category;
@@ -53,8 +53,8 @@ public class Item {
         return image;
     }
 
-    public Rooster getRooster() {
-        return rooster;
+    public List<Rooster> getRooster() {
+        return roosters;
     }
 
     public Category getCategory() {
@@ -69,7 +69,7 @@ public class Item {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", image='" + image + '\'' +
-                ", rooster=" + rooster +
+                ", rooster=" + roosters +
                 ", category=" + category +
                 '}';
     }

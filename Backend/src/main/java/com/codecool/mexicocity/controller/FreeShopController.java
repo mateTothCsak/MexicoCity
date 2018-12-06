@@ -15,11 +15,9 @@ import java.util.List;
 public class FreeShopController extends HttpServlet {
 
     private ItemService itemService;
-    private EntityManagerFactory emf;
 
-    public FreeShopController(ItemService itemService, EntityManagerFactory emf) {
+    public FreeShopController(ItemService itemService) {
         this.itemService = itemService;
-        this.emf = emf;
     }
 
     @Override

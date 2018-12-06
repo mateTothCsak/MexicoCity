@@ -1,5 +1,6 @@
 package com.codecool.mexicocity.dao;
 
+import com.codecool.mexicocity.model.Item;
 import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.util.TransactionHandler;
 import com.fasterxml.jackson.databind.ser.Serializers;
@@ -25,6 +26,11 @@ public class RoosterDao extends BaseDao {
         String hql = "SELECT r FROM Rooster AS r ORDER BY wonMatches DESC";
         Query query = (Query) em.createQuery(hql);
         return query.list();
+
+    }
+
+    public void updateItems(Rooster rooster, Item item){
+        rooster.addItems(item);
 
     }
 
