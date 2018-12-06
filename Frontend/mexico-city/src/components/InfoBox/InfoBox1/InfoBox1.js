@@ -13,7 +13,7 @@ const infoBox1 = () =>(
             <p>Our bite-sized lessons are effective, and we have proof that it works.</p>
         </div>
         <div className={classes.RightContent}>
-            <img src={Timer}></img>
+            <img src={Timer} alt="GoodToLearn"></img>
         </div>
     </div>
 

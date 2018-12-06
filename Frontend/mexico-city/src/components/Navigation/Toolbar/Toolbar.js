@@ -5,13 +5,15 @@ import Logo from '../../Logo/Logo'
 import NavigationItems from '../NavigationItems/NavigationItems';
 
 
-const toolbar = () => (
+const toolbar = (props) => (
     <header className={classes.Toolbar}>
-        <div className={classes.Logo}>
-            <Logo/>
+        <div className={classes.Logo} >
+            <a href="/">
+                <Logo/>
+            </a>
         </div>
         <nav>
-            <NavigationItems/>
+            <NavigationItems displayModal={props.displayModal}/>
         </nav>
     </header>
 )

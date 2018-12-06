@@ -1,16 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
-import Layout from './components/Layout/Layout';
+
+
 import MyMainPage from './containers/MyMainPage/MyMainPage';
+import Home from './containers/Home/Home';
 
-const HOME = 'http://localhost:8080/home';
+
+// const HOME = 'http://localhost:8080/home';
 
 class App extends Component {
     constructor(props){
       super(props);
 
     this.state = {
-        data: [],
+        data : [],
+        user: [],
         isLoading : false,
         error : null,
       };
@@ -18,31 +23,33 @@ class App extends Component {
   
 
   componentDidMount(){
-    // this.state({"isLoading" : true})
 
-    fetch(HOME,{
-      method: "GET",
-    })
-      .then(response => {
-        if(response.ok){
-          return response.json();
-        } else {
-          throw new Error('Something went wrong...');
-        }
-      })
-      .then(data => this.setState({ data , isLoading : false}))
-      .catch(error => this.setState({error, isLoading: false}));
+    // fetch(HOME,{method: "GET"}, {mode: 'no-cors'})
+    //   .then(response => {
+    //     if(response.ok){
+    //       return response.json();
+    //     } else {
+    //       throw new Error('Something went wrong...');
+    //     }
+    //   })
+    //   .then(data => this.setState({ data , isLoading : false}))
+    //   .catch(error => this.setState({error, isLoading: false}));
   }
 
 
+
+
   render() {
-    let [ data, loading, error ] = [this.state.data, this.state.isLoading, this.state.error];
+    let [ user] = [this.state.user];
 
     return (
       <div>
-        <Layout>  
-          <MyMainPage allData={data} loading={loading} error={error}/>
-        </Layout> 
+          <Router>
+            <Fragment>
+              <Route exact path="/" render={() => <MyMainPage/>} />
+              <Route exact path="/home" render={() => <Home user={user}/>} />
+            </Fragment>
+          </Router>
       </div>
     );
   }
