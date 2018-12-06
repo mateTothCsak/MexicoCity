@@ -38,7 +38,7 @@ public class Application implements ServletContextListener {
         initializeShop.initDatabase();
 
         ServletContext context = sce.getServletContext();
-        context.addServlet("Index", new IndexController()).addMapping("/");
+        context.addServlet("Index", new IndexController(userService)).addMapping("/");
         context.addServlet("LoggedInHome", new LoggedInMainPageController(roosterService)).addMapping("/home");
         context.addServlet("MyProfile", new MyProfileController(userService)).addMapping("/myprofile");
         context.addServlet("FreeShop", new FreeShopController(itemService, roosterService)).addMapping("/shop");

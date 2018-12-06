@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Layout from './components/Layout/Layout';
 import MyMainPage from './containers/MyMainPage/MyMainPage';
 
-const HOME = 'http://localhost:8090/home';
+const HOME = 'http://localhost:8080/home';
 
 class App extends Component {
     constructor(props){
