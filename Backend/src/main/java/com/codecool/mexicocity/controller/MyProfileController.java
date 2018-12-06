@@ -44,14 +44,6 @@ public class MyProfileController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ObjectNode node = JsonHandler.getInstance().buildObjectFromJson(request);
-
-        String roosterJson = node.get("myRooster").toString();
-        System.out.println(roosterJson);
-
-        Rooster rooster = (Rooster) JsonHandler.getInstance().objectFromJson(roosterJson, Rooster.class);
-        System.out.println(rooster.toString());
-
     }
 
 

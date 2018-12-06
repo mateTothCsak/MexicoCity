@@ -86,6 +86,7 @@ public class RoosterService {
             System.out.println("Item bought");
             return true;
         }
+        //throw new ArithmeticException("Not enough gold");
         System.out.println("Not enough gold");
         return false;
     }
