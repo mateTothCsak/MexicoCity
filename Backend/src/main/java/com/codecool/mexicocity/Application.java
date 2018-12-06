@@ -41,7 +41,7 @@ public class Application implements ServletContextListener {
         context.addServlet("Index", new IndexController()).addMapping("/");
         context.addServlet("LoggedInHome", new LoggedInMainPageController(roosterService)).addMapping("/home");
         context.addServlet("MyProfile", new MyProfileController(userService)).addMapping("/myprofile");
-        context.addServlet("FreeShop", new FreeShopController(itemService)).addMapping("/shop");
+        context.addServlet("FreeShop", new FreeShopController(itemService, roosterService)).addMapping("/shop");
         context.addServlet("Registration", new RegistrationController(roosterService, userService)).addMapping("/register");
         context.addServlet("Fight", new FightController(fightService,roosterService)).addMapping("/fight");}
 

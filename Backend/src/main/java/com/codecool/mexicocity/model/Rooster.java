@@ -21,7 +21,8 @@ public class Rooster {
     @OneToOne(mappedBy = "lostRooster")
     private Fight lostFight;
 
-    @ManyToMany(mappedBy = "roosters", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
+    //@JsonBackReference
     private List<Item> roosterItems = new ArrayList<>();
 
     //@JsonManagedReference is for Jackson to BETTER handle jackson
@@ -72,13 +73,6 @@ public class Rooster {
     // com.codecool.mexicocity.model.User sends her/his solution for the quiz
     public int sendSolution(){
         return 0;
-    }
-
-    //Calls addItems() and Pay() methods
-    public void buyItem(Item item){
-        if(isEnoughGold(item)){
-            addItems(item);
-        }
     }
 
     // Adds item to shopItems
