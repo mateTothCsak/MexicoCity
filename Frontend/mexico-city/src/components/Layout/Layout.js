@@ -7,7 +7,7 @@ import Footer from '../Footer/Footer';
 
 const layout = (props) => (
     <Aux>
-        <Toolbar displayModal={props.displayModal}/>
+        <Toolbar displayRegModal={props.displayRegModal} displayLogModal={props.displayLogModal}/>
         <main className={classes.Content}>
             {props.children}
         </main>
