@@ -57,7 +57,8 @@ public class RoosterService {
 
     public void checkLevelUp(Rooster rooster) {
         if (rooster.getExperience() >= 100) {
-            updateRoosterLevel(rooster,rooster.getLevel() + 1);
+            rooster.setLevel(rooster.getLevel() + 1);
+            //updateRoosterLevel(rooster,rooster.getLevel() + 1);
             roosterDao.setExperienceToZero(rooster);
             roosterDao.updateImage(rooster);
         }
