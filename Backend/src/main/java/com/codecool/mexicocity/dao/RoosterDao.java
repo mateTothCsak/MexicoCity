@@ -72,7 +72,7 @@ public class RoosterDao extends BaseDao {
     }
 
     public void updateImage(Rooster rooster) {
-        String image = "resources/img/pipi"+rooster.getLevel()+ ".jpg";
+        String image = "pipi"+rooster.getLevel()+ ".png";
         rooster.setImage(image);
         update(rooster);
     }

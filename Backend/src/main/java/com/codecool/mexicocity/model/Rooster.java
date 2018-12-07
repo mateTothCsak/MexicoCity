@@ -17,8 +17,11 @@ public class Rooster {
     private int level;
     private int gold;
     @OneToOne(mappedBy = "wonRooster")
+    @JsonIgnore
     private Fight wonFight;
+
     @OneToOne(mappedBy = "lostRooster")
+    @JsonIgnore
     private Fight lostFight;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -36,7 +39,9 @@ public class Rooster {
     private int winRatio;
     private String image;
 
+
     @OneToOne(mappedBy = "rooster1")
+    @JsonIgnore
     private Fight fight;
 
     @Transient
@@ -50,7 +55,7 @@ public class Rooster {
         this.gold = 0;
         this.wonMatches = 0;
         this.lostMatches = 0;
-        this.image = "pipil.png";
+        this.image = "pipi1.png";
     }
 
     // Details extracted from DB, constructor used when user already has an account
