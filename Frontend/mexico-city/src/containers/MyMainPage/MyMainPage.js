@@ -1,101 +1,117 @@
-import React, { Component } from 'react';
-// import axios from 'axios';
+import React, { Component, Fragment } from 'react'
+import axios from 'axios'
 
-import Aux from '../../hoc/Aux'
-import Jumbotron from '../../components/Jumbotron/Jumbotron';
-import InfoBox1 from '../../components/InfoBox/InfoBox1/InfoBox1';
-import InfoBox2 from '../../components/InfoBox/InfoBox2/InfoBox2';
-import Modal from '../../components/UI/Modal/Modal';
-import Layout from '../../components/Layout/Layout';
+import Layout from '../../components/Layout/Layout'
+import Jumbotron from '../../components/Jumbotron/Jumbotron'
+import InfoBox1 from '../../components/InfoBox/InfoBox1/InfoBox1'
+import InfoBox2 from '../../components/InfoBox/InfoBox2/InfoBox2'
 
-const REGISTRATION_ROUTE = "http://localhost:8080/register";
+import RegistrationModal from '../../components/UI/Modal/RegistrationModal'
+import LoginModal from '../../components/UI/Modal/LoginModal'
+
 
 class MyMainPage extends Component {
     constructor(props){
-        super(props);
+        super(props)
         this.state = {
             data: [],
             isLoading : false,
-            displayModal : false,
-            userLoggedIn : false,
+            displayRegModal : false,
+            displayLogModal : false,
+
+            successfulLogin : false,
+            successfulRegistration : false,
+
             password : '',
             confirmedPassword: '',
             email : '',
             error : null,
-          };
+          }
     }
 
-    displayModal = () =>{
-        this.setState({displayModal: true})
+    displayRegModal = () =>{
+        this.setState({displayRegModal: true})
     }
    
-    closeModal=()=>{
-        this.setState({displayModal: false})
+    closeRegModal=()=>{
+        this.setState({displayRegModal: false})
     }
 
+    displayLogModal = () =>{
+        this.setState({displayLogModal: true})
+    }
+   
+    closeLogModal=()=>{
+        this.setState({displayLogModal: false})
+    }
 
-    // sendRegistrationInfo=(regInfo)=>{
-    //     axios.post(REGISTRATION_ROUTE, regInfo)
-    //         .then(function(response){
-    //         console.log(response);
-    //         //Perform action based on response
-    //     })
-    //     .catch(function(error){
-    //     console.log(error);
-    //     //Perform action based on error
-    //     });
-    // }
-        
-    // sendRegistrationInfo=(regInfo)=> {
-    //     fetch('https://api.github.com/gists', {
-    //       method: 'post',
-    //       body: JSON.stringify(opts)
-    //     }).then(function(response) {
-    //       return response.json();
-    //     }).then(function(data) {
-    //       ChromeSamples.log('Created Gist:', data.html_url);
-    //     });
-    //   }
+    registrationSuccessful=()=>{
+        this.setState({ successfulRegistration : true })
+    }
 
-    sendRegistrationInfo=(regInfo)=>{
-        fetch(REGISTRATION_ROUTE,
-                {method: "post"}, 
-                {mode: 'no-cors'},
-                {body : regInfo})
-        .then(response => {
-            if(response.ok){
-            return response.json()
-            } else {
-            throw new Error('Something went wrong...');
-            }
+    registrationNotSuccessful=()=>{
+        this.setState({ successfulRegistration : false })
+    }
+
+    loginSuccessful=()=>{
+        this.setState({ successfulLogin:  true})
+        this.props.userLogin()
+        // this.props.requireAuth()
+    }
+
+    loginNotSuccessful=()=>{
+        this.setState({ successfulLogin:  false})
+    }
+
+    sendSubmitednInfo=(regInfo, route)=>{
+        axios.post(route, regInfo)
+            .then(function(response){
+            console.log(response);
+        }).then(data=> this.setState({data}))
+        .catch(function(error){
+        console.log(error)
         })
-        .then(data => this.setState({ data , isLoading : false}))
-        .catch(error => this.setState({error, isLoading: false}));
     }
 
-    // user logged in ? state.field
 
     render() { 
-        let [displayModal, email, password] = [this.state.displayModal, this.state.email, this.state.password];
+        let [displayRegModal, displayLogModal, succReg] = [this.state.displayRegModal, this.state.displayLogModal, this.state.successFulRegistration]
+        let successReg = ''
+        // let myData = 'jaj'
 
+        if(succReg){
+            successReg = "Your registration was successful. It's time to log in now. "
+        }
+        // if(data){
+        //     myData = {data}
+        // }
         return (     
-            <Aux>
-                <Layout displayModal={this.displayModal}>
-                    <Modal 
-                        show={displayModal} 
-                        modalClosed={this.closeModal}
-                        sendRegistrationInfo={this.sendRegistrationInfo}
-                        >
-                    </Modal>
-                    
-                    <div style={{ color : "white"}}>{email} {password}</div>
+            <Fragment>
+                <Layout 
+                    displayRegModal={this.displayRegModal} 
+                    displayLogModal={this.displayLogModal}>
+                    <RegistrationModal 
+                        show={displayRegModal} 
+                        modalClosed={this.closeRegModal}
+                        sendRegInfo={this.sendSubmitednInfo}
+                        registrationSuccessful={this.registrationSuccessful}
+                    />
+                    <LoginModal
+                        show={displayLogModal} 
+                        modalClosed={this.closeLogModal}
+                        sendLogInfo={this.sendSubmitednInfo}
+                        loginSuccessful={this.loginSuccessful}
+                    />
+                    <p style={{color: "green"}}>{successReg}</p>
                     <Jumbotron/>
                     <InfoBox1></InfoBox1>
                     <InfoBox2></InfoBox2>
                 </Layout>
-            </Aux>
-          );
+            </Fragment>
+          )
     }
 }
+
+// {myData? myData.map(d => <div>{d.email}</div>) : null}
  
-export default MyMainPage;
+export default MyMainPage
