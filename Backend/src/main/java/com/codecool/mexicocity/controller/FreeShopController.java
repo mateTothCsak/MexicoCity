@@ -5,27 +5,54 @@ import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.service.ItemService;
 import com.codecool.mexicocity.service.RoosterService;
 import com.codecool.mexicocity.util.JsonHandler;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.RollbackException;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
+@RestController
 public class FreeShopController extends HttpServlet {
 
     private ItemService itemService;
     private RoosterService roosterService;
 
+    @Autowired
     public FreeShopController(ItemService itemService, RoosterService roosterService) {
         this.itemService = itemService;
         this.roosterService = roosterService;
     }
 
+
+    @GetMapping("/shop")
+    public String loadShop() throws JsonProcessingException {
+        List items = itemService.getAllItem();
+        String jsonStringList = JsonHandler.getInstance().jsonifyList(items);
+        return jsonStringList;
+    }
+
+    @PostMapping("/shop")
+    public String sendPurchaseItem(@RequestBody ObjectNode json ) throws Exception {
+
+        String itemJson = json.get("item").toString();
+        String roosterJson = json.get("rooster").toString();
+        try {
+            Item item = (Item) JsonHandler.getInstance().objectFromJson(itemJson, Item.class);
+            Rooster rooster = (Rooster) JsonHandler.getInstance().objectFromJson(roosterJson, Rooster.class);
+            roosterService.buyItem(rooster, item);
+        } catch (RollbackException ex){
+            return "[SHOP] Wrong Item Json or Rooster Json";
+        }
+        return "[SHOP] " + itemJson + " bought by " + roosterJson;
+    }
+
+    /*
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -57,5 +84,6 @@ public class FreeShopController extends HttpServlet {
 
 
     }
+    */
 
 }

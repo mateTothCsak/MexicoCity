@@ -39,7 +39,7 @@ resources/META-INF/persistence.xml
 
 # frontend .idea is ignored
 /Frontend/*
-
+g
 
 ### Maven ###
 target/

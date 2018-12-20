@@ -1,36 +1,48 @@
 package com.codecool.mexicocity.service;
 
-import com.codecool.mexicocity.dao.RoosterDao;
+import com.codecool.mexicocity.dao.RoosterRepository;
 import com.codecool.mexicocity.model.Item;
 import com.codecool.mexicocity.model.Rooster;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
+@Component
 public class RoosterService {
 
-    private RoosterDao roosterDao;
+    private RoosterRepository roosterRepository;
+
+    private ItemService itemService;
 
     public RoosterService(){ }
 
-
-    public RoosterService(RoosterDao roosterDao) {
-        this.roosterDao = roosterDao;
+    @Autowired
+    public RoosterService(RoosterRepository roosterRepository, ItemService itemService) {
+        this.roosterRepository = roosterRepository;
+        this.itemService = itemService;
     }
 
     public void add(Rooster rooster) {
-        this.roosterDao.add(rooster);
+        this.roosterRepository.save(rooster);
     }
 
     public void remove(Rooster rooster) {
-        this.roosterDao.remove(rooster);
+        this.roosterRepository.delete(rooster);
     }
 
-    public Rooster getRoosterById(Long id) {
-        return (Rooster) this.roosterDao.getObjectById(id);
+    public Rooster getRoosterById(Long id) throws Exception {
+        Optional<Rooster> foundRooster = this.roosterRepository.findById(id);
+        if (foundRooster.isPresent()){
+            return foundRooster.get();
+        } else {
+            throw new Exception("Rooster with id not found");
+        }
     }
 
     public List<Rooster> getAllRooster() {
-        return this.roosterDao.getAllObjects("Rooster");
+        return this.roosterRepository.findAll();
     }
 
     public Rooster createRooster(){
@@ -40,49 +52,78 @@ public class RoosterService {
     }
 
     public List<Rooster> getTopRoosters() {
-        return this.roosterDao.getTopRoosters();
+        return this.roosterRepository.findTop10ByOrderByWonMatchesDesc();
     }
 
-    public void updateRoosterGold(Rooster rooster, int gold) {
-        this.roosterDao.increaseRoosterGold(rooster,gold);
+
+    public void updateRoosterGold(Rooster rooster, int gold) throws Exception {
+        Rooster foundRooster = this.getRoosterById(rooster.getId());
+        foundRooster.setGold(foundRooster.getGold() + gold);
+        this.roosterRepository.save(foundRooster);
     }
 
-    public void updateRoosterExperience(Rooster rooster, int experience) {
-        this.roosterDao.updateExperience(rooster,experience);
+    public void updateRoosterExperience(Rooster rooster, int experience) throws Exception {
+        Rooster foundRooster = this.getRoosterById(rooster.getId());
+        foundRooster.setExperience(foundRooster.getExperience() + experience);
+        this.roosterRepository.save(foundRooster);
     }
 
-    public void updateRoosterLevel(Rooster rooster, int level) {
-        this.roosterDao.updateLevel(rooster,level);
+    public void updateRoosterLevel(Rooster rooster, int level) throws Exception {
+        Rooster foundRooster = this.getRoosterById(rooster.getId());
+        foundRooster.setGold(foundRooster.getLevel() + level);
+        this.roosterRepository.save(foundRooster);
     }
 
-    public void checkLevelUp(Rooster rooster) {
-        if (rooster.getExperience() >= 100) {
-            updateRoosterLevel(rooster,rooster.getLevel() + 1);
-            roosterDao.setExperienceToZero(rooster);
-            roosterDao.updateImage(rooster);
+    public void checkLevelUp(Rooster rooster) throws Exception {
+        Rooster foundRooster = this.getRoosterById(rooster.getId());
+        String image;
+            if (foundRooster.getExperience() >= 100) {
+                image = "resources/img/pipi"+foundRooster.getLevel()+1 + ".jpg";
+                foundRooster.setLevel(foundRooster.getLevel() + 1);
+                foundRooster.setExperience(0);
+                foundRooster.setImage(image);
+                this.roosterRepository.save(foundRooster);
+            }
+    }
+
+    public void updateWonMatches(Rooster rooster) throws Exception {
+        Rooster foundRooster = this.getRoosterById(rooster.getId());
+        foundRooster.setWonMatches(foundRooster.getWonMatches() + 1);
+
+        float totalMatches = foundRooster.getLostMatches() + foundRooster.getWonMatches();
+        float ratio = foundRooster.getWonMatches()/totalMatches;
+        foundRooster.setWinRatio((int) (ratio * 100));
+
+        this.roosterRepository.save(foundRooster);
+    }
+
+    public void updateLostMatches(Rooster rooster) throws Exception {
+        Rooster foundRooster = this.getRoosterById(rooster.getId());
+        foundRooster.setWonMatches(foundRooster.getLostMatches() + 1);
+
+        float totalMatches = foundRooster.getLostMatches() + foundRooster.getWonMatches();
+        float ratio = foundRooster.getWonMatches()/totalMatches;
+        foundRooster.setWinRatio((int) (ratio * 100));
+
+        this.roosterRepository.save(foundRooster);
+    }
+
+
+    public void buyItem(Rooster rooster, Item item) throws Exception {
+        Rooster foundRooster = this.getRoosterById(rooster.getId());
+        Item foundItem = this.itemService.getItemById(item.getId());
+
+        if(isEnoughGold(foundRooster, foundItem) && !alreadyHaveItem(foundRooster, foundItem)) {
+            foundRooster.addItems(item);
+            foundRooster.setGold(foundRooster.getGold()-foundItem.getPrice());
+            this.roosterRepository.save(foundRooster);
+
         }
     }
 
-    public void updateWonMatches(Rooster rooster) {
-        this.roosterDao.updateRoosterWonMatches(rooster);
-        this.roosterDao.updateRoosterWinRatio(rooster);
-    }
-
-    public void updateLostMatches(Rooster rooster) {
-        this.roosterDao.updateRoosterLostMatches(rooster);
-        this.roosterDao.updateRoosterWinRatio(rooster);
-    }
-
-
-    public void buyItem(Rooster rooster, Item item){
-        if(isEnoughGold(rooster, item) && !alreadyHaveItem(rooster, item)) {
-            this.roosterDao.updateItems(rooster, item);
-            this.roosterDao.decreaseRoosterGold(rooster, item.getPrice());
-        }
-    }
-
-    private boolean isEnoughGold(Rooster rooster, Item item){
-        if(rooster.getGold() >= item.getPrice()){
+    private boolean isEnoughGold(Rooster rooster, Item item) throws Exception {
+        Rooster foundRooster = this.getRoosterById(rooster.getId());
+        if(foundRooster.getGold() >= item.getPrice()){
             System.out.println("Item bought");
             return true;
         }
@@ -91,7 +132,7 @@ public class RoosterService {
         return false;
     }
 
-    private boolean alreadyHaveItem(Rooster rooster, Item item){
+    private boolean alreadyHaveItem(Rooster rooster, Item item) throws Exception { ;
         if (haveItemInList(rooster.getRoosterItems(), item)){
             System.out.println("Already own item");
             return true;
