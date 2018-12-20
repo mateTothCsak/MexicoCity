@@ -5,6 +5,8 @@ import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.model.User;
 import com.codecool.mexicocity.util.Globals;
 import com.codecool.mexicocity.util.JsonHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,13 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@Component
 public class UserService {
 
     private UserDao userDao;
 
-
     public UserService(){ }
 
+    @Autowired
     public UserService(UserDao userDao) {
         this.userDao = userDao;
     }
@@ -54,26 +57,17 @@ public class UserService {
         add(user);
     }
 
-    public void tryLogIn(String enteredEmail, String enteredPassword, HttpServletResponse response) throws IOException {
-        if(getUserByEmail(enteredEmail) != null) {
+    public String tryLogIn(String enteredEmail, String enteredPassword) throws IOException {
+        String userJsonString = "nope";
+        if (getUserByEmail(enteredEmail) != null) {
             User user = getUserByEmail(enteredEmail);
             String realPassword = user.getPassword();
             String salt = user.getSalt();
-
             if (realPassword.equals(user.generateHash(enteredPassword, salt))) {
-                String userJsonString = JsonHandler.getInstance().jsonify(user);
-                response.setContentType("application/json;charset=UTF-8");
-                ServletOutputStream out = response.getOutputStream();
-                out.print(userJsonString);
-            } else {
-                System.out.println("Email does not exist or wrong password");
-                ServletOutputStream out = response.getOutputStream();
-                out.print("");
+                userJsonString = JsonHandler.getInstance().jsonify(user);
             }
-        } else {
-            System.out.println("Email does not exist or wrong password");
-            ServletOutputStream out = response.getOutputStream();
-            out.print("");
         }
+        System.out.println("[TryLogIn] " + userJsonString);
+        return userJsonString;
     }
 }

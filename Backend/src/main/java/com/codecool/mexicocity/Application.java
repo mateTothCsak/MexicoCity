@@ -20,9 +20,9 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 
-@WebListener
+//@WebListener
 public class Application implements ServletContextListener {
-
+/*
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -45,7 +45,7 @@ public class Application implements ServletContextListener {
         context.addServlet("Registration", new RegistrationController(roosterService, userService)).addMapping("/register");
         context.addServlet("Fight", new FightController(fightService,roosterService)).addMapping("/fight");}
 
-
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {}
+    */
 }

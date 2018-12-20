@@ -2,12 +2,14 @@ package com.codecool.mexicocity.dao;
 
 import com.codecool.mexicocity.model.User;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
 
 import java.util.List;
 
+@Component
 public class UserDao extends BaseDao {
 
     public UserDao(EntityManagerFactory emf) {

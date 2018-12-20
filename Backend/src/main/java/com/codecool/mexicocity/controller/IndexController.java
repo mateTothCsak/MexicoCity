@@ -1,8 +1,11 @@
 package com.codecool.mexicocity.controller;
 
+import com.codecool.mexicocity.model.User;
 import com.codecool.mexicocity.service.UserService;
 import com.codecool.mexicocity.util.JsonHandler;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,13 +14,29 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+@RestController
+//@RequestMapping
 public class IndexController extends HttpServlet {
-    UserService userService;
 
-    public IndexController(UserService userService) {
+    private UserService userService;
+
+    @Autowired
+    private IndexController(UserService userService) {
         this.userService = userService;
     }
 
+    @GetMapping("/")
+    public String showMain(){
+        return "OK";
+    }
+
+    @PostMapping("/")
+    public void registration(@RequestBody User user) throws IOException {
+        System.out.println("[USER] " + user);
+        userService.tryLogIn(user.getEmail(), user.getPassword());
+    }
+
+    /*
     @Override
     protected void doGet(HttpServletRequest request,HttpServletResponse response)
         throws ServletException, IOException {
@@ -41,4 +60,5 @@ public class IndexController extends HttpServlet {
         userService.tryLogIn(enteredEmail, enteredPassword, response);
 
     }
+    */
 }

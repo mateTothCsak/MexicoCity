@@ -50,7 +50,7 @@ public class Rooster {
         this.gold = 0;
         this.wonMatches = 0;
         this.lostMatches = 0;
-        this.image = "pipil.png";
+        this.image = "pipi1.png";
     }
 
     // Details extracted from DB, constructor used when user already has an account
