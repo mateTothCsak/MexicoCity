@@ -1,54 +1,48 @@
 package com.codecool.mexicocity.service;
 
 import com.codecool.mexicocity.dao.UserDao;
+import com.codecool.mexicocity.dao.UserRepository;
 import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.model.User;
-import com.codecool.mexicocity.util.Globals;
 import com.codecool.mexicocity.util.JsonHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class UserService {
 
-    private UserDao userDao;
+
+    private UserRepository userRepository;
 
     public UserService(){ }
 
     @Autowired
-    public UserService(UserDao userDao) {
-        this.userDao = userDao;
+    public UserService(UserRepository userDao) {
+        this.userRepository = userDao;
     }
 
     public void add(User user) {
-        this.userDao.add(user);
+        this.userRepository.save(user);
     }
 
     public void remove(User user) {
-        this.userDao.remove(user);
+        this.userRepository.delete(user);
     }
 
-    public User getUserById(Long id) {
-        return (User) this.userDao.getObjectById(id);
+    public Optional<User> getUserById(Long id) {
+        return this.userRepository.findById(id);
     }
 
     public User getUserByEmail(String email){
-        return (User) this.userDao.getObjectByField(User.class, "email", email);
+        return (User) this.userRepository.findUserByEmail(email);
     }
 
     public List<User> getAllUser() {
-        return this.userDao.getAllObjects("User");
-    }
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
+        return this.userRepository.findAll();
     }
 
 
@@ -58,9 +52,9 @@ public class UserService {
     }
 
     public String tryLogIn(String enteredEmail, String enteredPassword) throws IOException {
-        String userJsonString = "nope";
-        if (getUserByEmail(enteredEmail) != null) {
-            User user = getUserByEmail(enteredEmail);
+        String userJsonString = "";
+        User user = getUserByEmail(enteredEmail);
+        if (user != null) {
             String realPassword = user.getPassword();
             String salt = user.getSalt();
             if (realPassword.equals(user.generateHash(enteredPassword, salt))) {

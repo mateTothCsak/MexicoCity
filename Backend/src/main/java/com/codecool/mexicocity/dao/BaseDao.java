@@ -3,6 +3,8 @@ package com.codecool.mexicocity.dao;
 import com.codecool.mexicocity.util.TransactionHandler;
 import org.hibernate.Criteria;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,6 +15,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import java.util.List;
+
 
 public abstract class BaseDao<T> {
 
@@ -28,7 +31,7 @@ public abstract class BaseDao<T> {
     }
 
     public void add(T object){
-        TransactionHandler.handleTransactionVoid(em -> em.persist(object));
+       TransactionHandler.handleTransactionVoid(em -> em.persist(object));
     }
 
     public void update(T object){
@@ -49,6 +52,7 @@ public abstract class BaseDao<T> {
     }
 
     public Object getObjectById(Long id) {
+
         EntityManager em = emf.createEntityManager();
         transaction.begin();
         Object object = em.find(classType, id);

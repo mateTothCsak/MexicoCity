@@ -7,25 +7,30 @@ import com.codecool.mexicocity.service.ItemService;
 import com.codecool.mexicocity.service.RoosterService;
 import com.codecool.mexicocity.service.UserService;
 import com.codecool.mexicocity.util.MyEntityManagerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class InitializeShop {
+
     RoosterService roosterService;
     UserService userService;
     ItemService itemService;
 
-
+    @Autowired
     public InitializeShop(RoosterService roosterService, UserService userService, ItemService itemService) {
         this.roosterService = roosterService;
         this.userService = userService;
         this.itemService = itemService;
     }
 
-
-    public void initDatabase() {
+    @PostConstruct
+    public void initDatabase() throws Exception {
         //Items:
         //PIMP
 

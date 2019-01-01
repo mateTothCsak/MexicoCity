@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 public class MyProfileController extends HttpServlet {
 
@@ -30,7 +31,7 @@ public class MyProfileController extends HttpServlet {
 
 
         Long id = Long.parseLong(request.getParameter("id"));
-        User user = userService.getUserById(id);
+        Optional<User> user = userService.getUserById(id);
         System.out.println(user);
         String userJsonString = JsonHandler.getInstance().jsonify(user);
 

@@ -54,7 +54,7 @@ public class FightController extends HttpServlet {
         String wonRoosterJson = node.get("wonRooster").toString();
 
         Rooster wonRooster = (Rooster) JsonHandler.getInstance().objectFromJson(wonRoosterJson,Rooster.class);
-
+/*
         roosterService.updateRoosterGold(wonRooster,gold);
         roosterService.updateRoosterExperience(wonRooster,experience);
 
@@ -66,7 +66,7 @@ public class FightController extends HttpServlet {
         Rooster lostRooster = (Rooster) JsonHandler.getInstance().objectFromJson(lostRoosterJson,Rooster.class);
 
         roosterService.updateLostMatches(lostRooster);
-
+*/
 
     }
 

@@ -5,6 +5,7 @@ import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.util.TransactionHandler;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -14,8 +15,8 @@ import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class RoosterDao extends BaseDao {
-
 
     public RoosterDao(EntityManagerFactory emf) {
         super(Rooster.class, emf);
