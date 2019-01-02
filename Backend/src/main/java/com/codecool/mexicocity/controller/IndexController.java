@@ -10,7 +10,7 @@ import java.io.IOException;
 
 
 @RestController
-public class IndexController extends HttpServlet {
+public class IndexController {
 
     private UserService userService;
 
@@ -26,7 +26,7 @@ public class IndexController extends HttpServlet {
 
     @PostMapping("/")
     public void sendLogIn(@RequestBody User user) throws IOException {
-        System.out.println("[USER] " + user);
+        System.out.println("[USER] " + user.getEmail() + " " + user.getPassword());
         userService.tryLogIn(user.getEmail(), user.getPassword());
     }
 

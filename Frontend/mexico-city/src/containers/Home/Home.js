@@ -1,6 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 
-import Aux from '../../hoc/Aux'
 import Layout from '../../components/Layout/Layout'
 import Rooster from '../../components/Rooster/Rooster'
 
@@ -19,9 +18,8 @@ class Home extends Component {
     
     componentDidMount(){
     
-    fetch(HOME,{
-        method: "GET",
-      })
+    fetch(HOME,
+        {method: "GET"})
         .then(response => {
           if(response.ok){
             return response.json();
@@ -34,33 +32,28 @@ class Home extends Component {
     }
 
     render() { 
-        let transformedRooster = Object.keys(this.state.data)
-                                    .map(d => {
-                                            return <Rooster 
-                                                        key={d.id} 
-                                                        id={d.id} 
-                                                        experience={d.experience}
-                                                        level={d.level}
-                                                        gold={d.gold}
-                                                        roosterItems={d.roosterItems}
-                                                        wonMatches={d.wonMatches}
-                                                        lostMatches={d.lostMatches}
-                                                        image={d.image}/>
-                                        })
-
         return (
-            <Aux>
+            <Fragment>
                 <Layout>
-                    {transformedRooster}
+                <h2 style={{color : "white"}}>Top Roosters</h2>
+
+                    {this.state.data.map(d => (
+                        <Rooster
+                        key={d.id} 
+                        id={d.id} 
+                        experience={d.experience}
+                        level={d.level}
+                        gold={d.gold}
+                        wonMatches={d.wonMatches}
+                        lostMatches={d.lostMatches}
+                        image={d.image}/>)
+                    )}
+
                 </Layout>
-            </Aux>
+            </Fragment>
         );
     }
 }
-
-
-// {this.state.data.map(d => (   <div style={{color : "white"}} key={d.id}> {d.id}</div>
-// <img src={"../../assets/images/"+d.image} alt={d.id} height="150" width="100"/>
 
  
 export default Home
