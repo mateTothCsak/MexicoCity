@@ -18,6 +18,8 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+    @Column(unique = true)
+    private String name;
 
     //@JsonManagedReference is for Jackson to BETTER handle jackson
     //the back part of reference – it will be omitted from serialization
@@ -28,11 +30,12 @@ public class User {
     private String salt;
 
 
-    public User(String email, String password, Rooster rooster) {
+    public User(String email, String name, String password, Rooster rooster) {
         this.email = email;
         this.salt = generateSalt();
         this.password = generateHash(password, salt);
         this.myRooster = rooster;
+        this.name = name;
     }
 
 
@@ -65,6 +68,14 @@ public class User {
 
     public String getSalt() {
         return salt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String generateHash(String passwordToHash, String   salt){
