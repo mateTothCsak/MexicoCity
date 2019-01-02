@@ -1,51 +1,52 @@
 package com.codecool.mexicocity.config;
 
-import com.codecool.mexicocity.service.PostgresDBDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-
-
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+import java.util.Arrays;
 
 @Configuration
-@EnableConfigurationProperties
+@EnableWebSecurity
+@PropertySource(value = "auth0.properties")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    PostgresDBDetailsService userDetailsService;
 
-    @Autowired
-    public WebSecurityConfig(PostgresDBDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    @Value(value = "${auth0.apiAudience}")
+    private String apiAudience;
+    @Value(value = "${auth0.issuer}")
+    private String issuer;
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedHeader("Authorization");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.cors();
+        JwtWebSecurityConfigurer
+                .forRS256(apiAudience, issuer)
+                .configure(http)
                 .authorizeRequests()
-                .antMatchers("/*", "/login", "/register").permitAll()
-                .anyRequest().authenticated()
-                .and().httpBasic()
-                .and().csrf().disable();
+                .antMatchers(HttpMethod.GET, "/").permitAll()
+                .antMatchers(HttpMethod.POST, "/login", "/register").permitAll()
+                .antMatchers(HttpMethod.GET, "/home").authenticated()
+                .antMatchers(HttpMethod.GET, "/shop").hasAuthority("read:messages");
     }
-
-
-    @Override
-    public void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(userDetailsService);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
 }
