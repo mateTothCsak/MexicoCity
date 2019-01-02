@@ -121,10 +121,10 @@ public class RoosterService {
         }
     }
 
-    private boolean isEnoughGold(Rooster rooster, Item item) throws Exception {
+    public boolean isEnoughGold(Rooster rooster, Item item) throws Exception {
         Rooster foundRooster = this.getRoosterById(rooster.getId());
         if(foundRooster.getGold() >= item.getPrice()){
-            System.out.println("Item bought");
+            System.out.println("Item successfully bought");
             return true;
         }
         //throw new ArithmeticException("Not enough gold");
@@ -132,12 +132,12 @@ public class RoosterService {
         return false;
     }
 
-    private boolean alreadyHaveItem(Rooster rooster, Item item) throws Exception { ;
+    public boolean alreadyHaveItem(Rooster rooster, Item item) throws Exception { ;
         if (haveItemInList(rooster.getRoosterItems(), item)){
             System.out.println("Already own item");
             return true;
         }
-        System.out.println("Item got");
+        System.out.println("Item successfully bought");
         return false;
     }
 

@@ -31,6 +31,12 @@ public class RegistrationController{
         String name = user.getName();
         String password = user.getPassword();
 
+        if (userService.checkForExistingEmail(user)){
+            return "Email: " + user.getEmail() + " already exists";
+        } else if (userService.checkForExistingName(user)){
+            return "User name: " + user.getName() + "already exists";
+        }
+
         Rooster rooster = roosterService.createRooster();
         userService.createUser(email, name, password, rooster);
         return name + " was successfully registered";
