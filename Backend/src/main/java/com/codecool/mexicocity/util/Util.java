@@ -1,4 +1,4 @@
-package com.codecool.mexicocity.model;
+package com.codecool.mexicocity.util;
 
 
 import java.util.concurrent.ThreadLocalRandom;

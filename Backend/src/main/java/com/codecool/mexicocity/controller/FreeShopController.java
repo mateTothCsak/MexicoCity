@@ -1,61 +1,43 @@
 package com.codecool.mexicocity.controller;
 
 import com.codecool.mexicocity.model.Item;
+import com.codecool.mexicocity.model.ItemConnector;
 import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.service.ItemService;
 import com.codecool.mexicocity.service.RoosterService;
-import com.codecool.mexicocity.util.JsonHandler;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import javax.persistence.RollbackException;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
-public class FreeShopController extends HttpServlet {
+@RestController
+public class FreeShopController{
 
     private ItemService itemService;
     private RoosterService roosterService;
 
+    @Autowired
     public FreeShopController(ItemService itemService, RoosterService roosterService) {
         this.itemService = itemService;
         this.roosterService = roosterService;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
 
-        List items = itemService.getAllItem();
-
-        String jsonStringList = JsonHandler.getInstance().jsonifyList(items);
-        response.setContentType("application/json;charset=UTF-8");
-        ServletOutputStream out = response.getOutputStream();
-        out.print(jsonStringList);
+    @GetMapping("/shop")
+    public List<Item> loadShop() throws JsonProcessingException {
+        List<Item> items = itemService.getAllItem();
+        return items;
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        ObjectNode node = JsonHandler.getInstance().buildObjectFromJson(request);
-
-        String itemJson = node.get("item").toString();
-        String roosterJson = node.get("rooster").toString();
-
-        try {
-        Item item = (Item) JsonHandler.getInstance().objectFromJson(itemJson, Item.class);
-        Rooster rooster = (Rooster) JsonHandler.getInstance().objectFromJson(roosterJson, Rooster.class);
+    @PostMapping("/shop")
+    public String sendPurchaseItem(@RequestBody ItemConnector itemConnector ) throws Exception {
+        Item item = itemConnector.getItem();
+        Rooster rooster = itemConnector.getRooster();
         roosterService.buyItem(rooster, item);
-        } catch (RollbackException ex){
-            System.out.println("Wrong Item Json or Rooster Json");
-        }
-
-
+        return "[SHOP] " + item.getName() + " bought by " + rooster.getId();
     }
 
 }

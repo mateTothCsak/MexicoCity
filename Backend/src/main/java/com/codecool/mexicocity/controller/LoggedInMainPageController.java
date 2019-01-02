@@ -1,40 +1,51 @@
 package com.codecool.mexicocity.controller;
 
 import com.codecool.mexicocity.model.Rooster;
+import com.codecool.mexicocity.model.User;
+//import com.codecool.mexicocity.service.PostgresDBDetailsService;
 import com.codecool.mexicocity.service.RoosterService;
-import com.codecool.mexicocity.util.JsonHandler;
-import com.codecool.mexicocity.util.MyEntityManagerFactory;
-import org.hibernate.query.Query;
+import com.codecool.mexicocity.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityManager;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
-public class LoggedInMainPageController extends HttpServlet {
+@RestController
+public class LoggedInMainPageController{
 
     private RoosterService roosterService;
+    private UserService userService;
 
-    public LoggedInMainPageController(RoosterService roosterService) {
+    @Autowired
+    public LoggedInMainPageController(RoosterService roosterService, UserService userService) {
         this.roosterService = roosterService;
+        this.userService = userService;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    @GetMapping("/home")
+    public List<Rooster> loadUser() {
         List<Rooster> topRoosters = roosterService.getTopRoosters();
+        return topRoosters;
+    }
 
-        String jsonStringList = JsonHandler.getInstance().jsonifyList(topRoosters);
-        response.setContentType("application/json;charset=UTF-8");
-        ServletOutputStream out = response.getOutputStream();
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        out.print(jsonStringList);
+
+    @PostMapping("/login")
+    public User loginUser(@RequestBody User user) throws UsernameNotFoundException {
+        String email = user.getEmail();
+        String password = user.getPassword();
+
+
+        User userFound = userService.tryLogIn(email, password);
+        if (userFound == null) {
+            throw new UsernameNotFoundException("User was not found");
+        }
+        return userFound;
+        // JWT token without session, by using header, provider Auth0
+//        return detailsService.loadUserByUsername(email);
     }
 
 }
