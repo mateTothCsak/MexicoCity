@@ -43,8 +43,8 @@ public class UserService {
     }
 
 
-    public void createUser(String email, String password, Rooster rooster) {
-        User user = new User(email, password, rooster);
+    public void createUser(String email, String name, String password, Rooster rooster) {
+        User user = new User(email, name, password, rooster);
         add(user);
     }
 
