@@ -31,10 +31,9 @@ public class FreeShopController extends HttpServlet {
 
 
     @GetMapping("/shop")
-    public String loadShop() throws JsonProcessingException {
-        List items = itemService.getAllItem();
-        String jsonStringList = JsonHandler.getInstance().jsonifyList(items);
-        return jsonStringList;
+    public List<Item> loadShop() throws JsonProcessingException {
+        List<Item> items = itemService.getAllItem();
+        return items;
     }
 
     @PostMapping("/shop")

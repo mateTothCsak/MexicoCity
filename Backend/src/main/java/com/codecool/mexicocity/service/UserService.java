@@ -1,14 +1,11 @@
 package com.codecool.mexicocity.service;
 
-import com.codecool.mexicocity.dao.UserDao;
 import com.codecool.mexicocity.dao.UserRepository;
 import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.model.User;
-import com.codecool.mexicocity.util.JsonHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,17 +48,18 @@ public class UserService {
         add(user);
     }
 
-    public String tryLogIn(String enteredEmail, String enteredPassword) throws IOException {
-        String userJsonString = "";
-        User user = getUserByEmail(enteredEmail);
-        if (user != null) {
+
+    public User tryLogIn(String email, String password){
+        User user = getUserByEmail(email);
+        if(user != null){
             String realPassword = user.getPassword();
             String salt = user.getSalt();
-            if (realPassword.equals(user.generateHash(enteredPassword, salt))) {
-                userJsonString = JsonHandler.getInstance().jsonify(user);
+
+            if(realPassword.equals(user.generateHash(password, salt))){
+                return user;
             }
         }
-        System.out.println("[TryLogIn] " + userJsonString);
-        return userJsonString;
+        System.out.println("[TryLogIn] " + user);
+        return null;
     }
 }
