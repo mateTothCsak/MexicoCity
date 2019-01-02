@@ -48,12 +48,12 @@ public class Initialize {
         rooster.addItems(kalas);
         rooster.addItems(vest);
         roosterService.updateRoosterGold(rooster, 1000);
-        userService.createUser("henry","henry",rooster);
+        userService.createUser("henry@mexicocity.com","henry","henry",rooster);
         Rooster rooster1 = roosterService.createRooster();
-        userService.createUser("stefan","stefan",rooster1);
+        userService.createUser("stefan@mexicocity.com","stefan","stefan",rooster1);
         Rooster rooster2 = roosterService.createRooster();
-        userService.createUser("tocsi","tocsi",rooster2);
+        userService.createUser("tocsi@mexicocity.com","tocsi","tocsi",rooster2);
         Rooster rooster3 = roosterService.createRooster();
-        userService.createUser("mate","mate",rooster3);
+        userService.createUser("mate@mexicocity.com","mate","mate",rooster3);
     }
 }
