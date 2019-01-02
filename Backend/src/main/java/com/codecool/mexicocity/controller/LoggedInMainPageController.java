@@ -40,19 +40,19 @@ public class LoggedInMainPageController extends HttpServlet {
     }
 
 
-    @PostMapping("/login")
-    public User loginUser(@RequestBody User user) throws UsernameNotFoundException {
-        String email = user.getEmail();
-        String password = user.getPassword();
-
-
-        User userFound = userService.tryLogIn(email, password);
-        if (userFound == null) {
-            throw new UsernameNotFoundException("User was not found");
-        }
-        return userFound;
-        // JWT token without session, by using header, provider Auth0
-//        return detailsService.loadUserByUsername(email);
-    }
+//    @PostMapping("/login")
+//    public User loginUser(@RequestBody User user) throws UsernameNotFoundException {
+//        String email = user.getEmail();
+//        String password = user.getPassword();
+//
+//
+//        User userFound = userService.tryLogIn(email, password);
+//        if (userFound == null) {
+//            throw new UsernameNotFoundException("User was not found");
+//        }
+//        return userFound;
+//        // JWT token without session, by using header, provider Auth0
+////        return detailsService.loadUserByUsername(email);
+//    }
 
 }
