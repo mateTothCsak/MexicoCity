@@ -99,7 +99,7 @@ public class RoosterService {
 
     public void updateLostMatches(Rooster rooster) throws Exception {
         Rooster foundRooster = this.getRoosterById(rooster.getId());
-        foundRooster.setWonMatches(foundRooster.getLostMatches() + 1);
+        foundRooster.setLostMatches(foundRooster.getLostMatches() + 1);
 
         float totalMatches = foundRooster.getLostMatches() + foundRooster.getWonMatches();
         float ratio = foundRooster.getWonMatches()/totalMatches;

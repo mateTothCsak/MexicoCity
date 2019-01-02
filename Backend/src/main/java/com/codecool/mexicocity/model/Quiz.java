@@ -1,6 +1,8 @@
 package com.codecool.mexicocity.model;
 
 
+import com.codecool.mexicocity.util.Util;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;

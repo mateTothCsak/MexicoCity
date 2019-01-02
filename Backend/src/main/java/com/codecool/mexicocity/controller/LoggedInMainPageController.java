@@ -5,20 +5,13 @@ import com.codecool.mexicocity.model.User;
 //import com.codecool.mexicocity.service.PostgresDBDetailsService;
 import com.codecool.mexicocity.service.RoosterService;
 import com.codecool.mexicocity.service.UserService;
-import com.codecool.mexicocity.util.JsonHandler;
-import com.codecool.mexicocity.util.MyEntityManagerFactory;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServlet;
 import java.util.List;
 
 @RestController

@@ -65,64 +65,10 @@ public class Rooster {
     }
 
 
-    // triggered when player wants to start a fight
-    public void requestToStartFighting(){
-        //TODO
-    }
-
-    // com.codecool.mexicocity.model.User sends her/his solution for the quiz
-    public int sendSolution(){
-        return 0;
-    }
-
     // Adds item to shopItems
     public void addItems(Item item){
         this.roosterItems.add((item));
     }
-
-
-    // Pays for the item
-    // Checks whether we have enough money if so deducts from the gold if
-    private boolean isEnoughGold(Item item){
-        //TODO
-        return false;
-    }
-
-
-
-    // METHODS FOR FIGHTS
-    public void initializeFight(){
-        myServer = new MyServer();
-        myServer.createFight(this);
-    }
-
-
-
-
-    public void fightWon(int goldToAdd, int experienceToAdd){
-        increaseGold(goldToAdd);
-        increaseExperience(experienceToAdd);
-        //TODO
-    }
-
-
-    public void fighLost(int experienceToAdd){
-        //TODO
-        increaseExperience(experienceToAdd);
-    }
-
-
-
-
-    private void increaseGold(int goldToAdd){
-        //TODO
-    }
-
-    private void increaseExperience(int experienceToAdd){
-        //TODO
-    }
-
-
 
 
     // GETTERS FOR FIELDS

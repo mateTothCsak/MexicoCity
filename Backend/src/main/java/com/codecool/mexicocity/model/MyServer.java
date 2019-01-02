@@ -8,9 +8,11 @@ public class MyServer {
 
     public MyServer() {}
 
+    /*
     public void createFight(Rooster rooster1){
         Rooster computerRooster = new Rooster();
         new Fight(rooster1);
     }
+    */
 
 }

@@ -2,6 +2,7 @@ package com.codecool.mexicocity.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 
 @Entity
@@ -23,7 +24,7 @@ public class Fight {
     private int experience;
     private int gold;
     @Transient
-    private Quiz quiz;
+    private List<Quiz> quizes;
     @OneToOne
     private Rooster rooster1;
     //@Transient
@@ -37,12 +38,13 @@ public class Fight {
 
 
     public Fight(){}
-    public Fight(Rooster rooster1) {
+    public Fight(Rooster rooster1, List<Quiz> quizes) {
         this.rooster1 = rooster1;
         //this.rooster2 = rooster2;
         this.timeOfFight = new Date();
         rounds = 3;
         rooster1Health = 3;
+        this.quizes = quizes;
     }
 
 
