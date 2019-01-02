@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 
 
 @RestController
-public class RegistrationController extends HttpServlet {
+public class RegistrationController{
     RoosterService roosterService;
     UserService userService;
 

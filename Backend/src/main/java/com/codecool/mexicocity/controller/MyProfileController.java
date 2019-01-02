@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import java.util.Optional;
 
 @RestController
-public class MyProfileController extends HttpServlet {
+public class MyProfileController {
 
     private UserService userService;
 

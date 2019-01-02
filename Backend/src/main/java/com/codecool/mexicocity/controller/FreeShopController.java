@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServlet;
 import java.util.List;
 
 @RestController
-public class FreeShopController extends HttpServlet {
+public class FreeShopController{
 
     private ItemService itemService;
     private RoosterService roosterService;

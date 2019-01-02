@@ -10,7 +10,7 @@ import java.io.IOException;
 
 
 @RestController
-public class IndexController extends HttpServlet {
+public class IndexController {
 
     private UserService userService;
 

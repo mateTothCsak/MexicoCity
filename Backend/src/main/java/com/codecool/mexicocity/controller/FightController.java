@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class FightController extends HttpServlet {
+public class FightController {
 
     FightService fightService;
     RoosterService roosterService;
