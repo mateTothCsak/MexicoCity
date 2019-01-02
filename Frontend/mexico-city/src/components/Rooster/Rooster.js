@@ -1,12 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react'
+
+import classes from '../Rooster/Rooster.css'
 
 const rooster = (props) => {
+
     return ( 
-        <Fragment key={props.id+1000}>
-            <div style={{color : "white"}} key={props.key}> {props.id}</div>
-            <img src={"../../assets/images/"+props.image} alt={props.id} height="150" width="100"/>
-        </Fragment>
-     );
+        <div className={classes.MyRooster}>
+            <div> {props.id}</div>
+            <img src={require('../../assets/images/'+props.image)} alt={props.id} height="150" width="100"/>
+        </div>
+     )
 }
  
-export default rooster;
+export default rooster

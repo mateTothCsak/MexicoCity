@@ -1,13 +1,9 @@
-import React, { Component, Fragment } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import React, { Component, Fragment } from 'react'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 
-
-import MyMainPage from './containers/MyMainPage/MyMainPage';
-import Home from './containers/Home/Home';
-
-
-// const HOME = 'http://localhost:8080/home';
+import MyMainPage from './containers/MyMainPage/MyMainPage'
+import Home from './containers/Home/Home'
 
 class App extends Component {
     constructor(props){
@@ -15,39 +11,40 @@ class App extends Component {
 
     this.state = {
         data : [],
-        user: [],
         isLoading : false,
         error : null,
+        user : []
       };
   }
-  
 
-  componentDidMount(){
-
-    // fetch(HOME,{method: "GET"}, {mode: 'no-cors'})
-    //   .then(response => {
-    //     if(response.ok){
-    //       return response.json();
-    //     } else {
-    //       throw new Error('Something went wrong...');
-    //     }
-    //   })
-    //   .then(data => this.setState({ data , isLoading : false}))
-    //   .catch(error => this.setState({error, isLoading: false}));
+  requireAuth=(nextState, replace)=>{
+    let [user] = [this.state.user]
+    if(user){
+      // history.push('/home')
+      // replace({
+      //   pathname : '/home',
+      //   state: { nextPathname: nextState.location.pathname }
+      // })
+    }
   }
 
+  getUser=()=>{
+    localStorage.getItem('user')
+  }
 
-
+  setUser=(user)=>{
+    localStorage.setItem('user', user)
+  }
 
   render() {
-    let [ user] = [this.state.user];
+    let [user] = [this.state.user];
 
     return (
       <div>
           <Router>
             <Fragment>
-              <Route exact path="/" render={() => <MyMainPage/>} />
-              <Route exact path="/home" render={() => <Home user={user}/>} />
+              <Route exact path="/" render={() => <MyMainPage userLogin={this.setUser} requireAuth={this.requireAuth}/>} />
+              <Route exact path="/home" render={()=><Home user={user}/>}/>
             </Fragment>
           </Router>
       </div>
@@ -55,4 +52,5 @@ class App extends Component {
   }
 }
 
-export default App;
+// <Route path="protectedRoute" render={()=><Home user={user}/>} onEnter={this.requireAuth} />
+export default App
