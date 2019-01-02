@@ -36,8 +36,11 @@ public class FightController {
     }
 
     @PostMapping("/fight")
-    public void sendFight(@RequestBody Fight fight) throws Exception {
+    public String sendFight(@RequestBody Fight fight) throws Exception {
         fightService.endOfFightUpdate(fight);
+        return "[FIGHT] RoosterId: " + fight.getWonRooster().getId() + " Won, received " + fight.getGold() + " Gold and " + fight.getExperience()
+                + " Exp. \n"
+                + "RoosterId: " + fight.getLostRooster().getId() + " Lost.";
     }
 
 }
