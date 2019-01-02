@@ -48,6 +48,14 @@ public class UserService {
         add(user);
     }
 
+    public boolean checkForExistingEmail(User user){
+        return this.userRepository.findUserByEmail(user.getEmail()) != null;
+
+
+    }public boolean checkForExistingName(User user){
+        return this.userRepository.findUserByName(user.getName()) != null;
+    }
+
 
     public User tryLogIn(String email, String password){
         User user = getUserByEmail(email);

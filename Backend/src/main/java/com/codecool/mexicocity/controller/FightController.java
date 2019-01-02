@@ -1,6 +1,7 @@
 package com.codecool.mexicocity.controller;
 
 import com.codecool.mexicocity.model.Fight;
+import com.codecool.mexicocity.model.FightQuizConnector;
 import com.codecool.mexicocity.model.Quiz;
 import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.service.FightService;
@@ -8,7 +9,9 @@ import com.codecool.mexicocity.service.RoosterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 public class FightController {
@@ -23,17 +26,21 @@ public class FightController {
     }
 
     @GetMapping("/fight")
-    public Fight loadFight(@RequestParam long roosterId) throws Exception {
+    public FightQuizConnector loadFight(@RequestParam long roosterId) throws Exception {
         List<Quiz> quizes = fightService.generateQuizes();
         Rooster rooster = roosterService.getRoosterById(roosterId);
-        Fight fight = new Fight(rooster, quizes);
+        Fight fight = new Fight(rooster);
         fightService.add(fight);
-        return fight;
+        FightQuizConnector fightQuizConnector = new FightQuizConnector(fight, quizes);
+        return fightQuizConnector;
     }
 
     @PostMapping("/fight")
-    public void sendFight(@RequestBody Fight fight) throws Exception {
+    public String sendFight(@RequestBody Fight fight) throws Exception {
         fightService.endOfFightUpdate(fight);
+        return "[FIGHT] RoosterId: " + fight.getWonRooster().getId() + " Won, received " + fight.getGold() + " Gold and " + fight.getExperience()
+                + " Exp. \n"
+                + "RoosterId: " + fight.getLostRooster().getId() + " Lost.";
     }
 
 }
