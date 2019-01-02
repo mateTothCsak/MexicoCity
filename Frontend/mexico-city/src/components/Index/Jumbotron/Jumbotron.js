@@ -1,8 +1,8 @@
 import React from 'react';
 
-import roosterCartoon from '../../assets/images/rooaster-main-img.png';
+import roosterCartoon from '../../../assets/images/rooaster-main-img.png';
 import classes from './Jumbotron.css';
-import Button from '../UI/Button/Button';
+import Button from '../../Common/UI/Button/Button';
 
 
 const jumbotron = () => (
