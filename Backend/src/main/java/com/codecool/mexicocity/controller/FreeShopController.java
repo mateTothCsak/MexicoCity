@@ -36,8 +36,13 @@ public class FreeShopController{
     public String sendPurchaseItem(@RequestBody ItemConnector itemConnector ) throws Exception {
         Item item = itemConnector.getItem();
         Rooster rooster = itemConnector.getRooster();
+        if (roosterService.alreadyHaveItem(rooster, item)){
+            return "Rooster already owns item";
+        } else if (!roosterService.isEnoughGold(rooster, item)){
+            return "Rooster doesn't have enough gold";
+        }
         roosterService.buyItem(rooster, item);
-        return "[SHOP] " + item.getName() + " bought by " + rooster.getId();
+        return "[SHOP] " + item.getName() + " bought by " + "RoosterId: " + rooster.getId();
     }
 
 }
