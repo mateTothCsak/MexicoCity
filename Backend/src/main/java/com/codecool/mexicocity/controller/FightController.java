@@ -1,6 +1,7 @@
 package com.codecool.mexicocity.controller;
 
 import com.codecool.mexicocity.model.Fight;
+import com.codecool.mexicocity.model.FightQuizConnector;
 import com.codecool.mexicocity.model.Quiz;
 import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.service.FightService;
@@ -25,12 +26,13 @@ public class FightController {
     }
 
     @GetMapping("/fight")
-    public Fight loadFight(@RequestParam long roosterId) throws Exception {
+    public FightQuizConnector loadFight(@RequestParam long roosterId) throws Exception {
         List<Quiz> quizes = fightService.generateQuizes();
         Rooster rooster = roosterService.getRoosterById(roosterId);
-        Fight fight = new Fight(rooster, quizes);
+        Fight fight = new Fight(rooster);
         fightService.add(fight);
-        return fight;
+        FightQuizConnector fightQuizConnector = new FightQuizConnector(fight, quizes);
+        return fightQuizConnector;
     }
 
     @PostMapping("/fight")

@@ -24,7 +24,7 @@ public class Fight {
     private int experience;
     private int gold;
     @Transient
-    private List<Quiz> quizes;
+    private Quiz quiz;
     @OneToOne
     private Rooster rooster1;
     //@Transient
@@ -38,13 +38,12 @@ public class Fight {
 
 
     public Fight(){}
-    public Fight(Rooster rooster1, List<Quiz> quizes) {
+    public Fight(Rooster rooster1) {
         this.rooster1 = rooster1;
         //this.rooster2 = rooster2;
         this.timeOfFight = new Date();
         rounds = 3;
         rooster1Health = 3;
-        this.quizes = quizes;
     }
 
 
