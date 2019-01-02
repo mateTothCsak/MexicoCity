@@ -1,41 +1,37 @@
 package com.codecool.mexicocity.service;
 
 import com.codecool.mexicocity.dao.FightDao;
+import com.codecool.mexicocity.dao.FightRepository;
 import com.codecool.mexicocity.model.Fight;
 import com.codecool.mexicocity.model.Quiz;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FightService {
 
-    private FightDao fightDao;
+    private FightRepository fightRepository;
 
     public FightService(){ }
 
-    public FightService(FightDao fightDao) {
-        this.fightDao = fightDao;
+    public FightService(FightRepository fightRepository) {
+        this.fightRepository = fightRepository;
     }
 
     public void add(Fight fight) {
-        this.fightDao.add(fight);
+        this.fightRepository.save(fight);
     }
 
     public void remove(Fight fight) {
-        this.fightDao.remove(fight);
+        this.fightRepository.delete(fight);
     }
 
     public void getFightById(Long id) {
-        this.fightDao.getObjectById(id);
+        this.fightRepository.findById(id);
     }
 
     public List<Fight> getAllFight() {
-        return this.fightDao.getAllObjects("Fight");
-    }
-
-    public void setFightDao(FightDao fightDao) {
-        this.fightDao = fightDao;
+        return this.fightRepository.findAll();
     }
 
     public List<Quiz> generateFight() {
@@ -43,9 +39,7 @@ public class FightService {
         for (int i = 1; i < 4; i++) {
             quizzes.add(new Quiz(i));
         }
-
         return quizzes;
-
     }
 
 

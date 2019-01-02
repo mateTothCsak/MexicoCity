@@ -31,59 +31,27 @@ public class FreeShopController extends HttpServlet {
 
 
     @GetMapping("/shop")
-    public String loadShop() throws JsonProcessingException {
-        List items = itemService.getAllItem();
-        String jsonStringList = JsonHandler.getInstance().jsonifyList(items);
-        return jsonStringList;
+    public List<Item> loadShop() throws JsonProcessingException {
+        List<Item> items = itemService.getAllItem();
+        return items;
     }
 
     @PostMapping("/shop")
     public String sendPurchaseItem(@RequestBody ObjectNode json ) throws Exception {
 
+        // seperate class
         String itemJson = json.get("item").toString();
         String roosterJson = json.get("rooster").toString();
         try {
+            // rearrange to service class
             Item item = (Item) JsonHandler.getInstance().objectFromJson(itemJson, Item.class);
             Rooster rooster = (Rooster) JsonHandler.getInstance().objectFromJson(roosterJson, Rooster.class);
             roosterService.buyItem(rooster, item);
+            // RoosterId/ItemId might be enough
         } catch (RollbackException ex){
             return "[SHOP] Wrong Item Json or Rooster Json";
         }
         return "[SHOP] " + itemJson + " bought by " + roosterJson;
     }
-
-    /*
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        List items = itemService.getAllItem();
-
-        String jsonStringList = JsonHandler.getInstance().jsonifyList(items);
-        response.setContentType("application/json;charset=UTF-8");
-        ServletOutputStream out = response.getOutputStream();
-        out.print(jsonStringList);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        ObjectNode node = JsonHandler.getInstance().buildObjectFromJson(request);
-
-        String itemJson = node.get("item").toString();
-        String roosterJson = node.get("rooster").toString();
-
-        try {
-        Item item = (Item) JsonHandler.getInstance().objectFromJson(itemJson, Item.class);
-        Rooster rooster = (Rooster) JsonHandler.getInstance().objectFromJson(roosterJson, Rooster.class);
-        roosterService.buyItem(rooster, item);
-        } catch (RollbackException ex){
-            System.out.println("Wrong Item Json or Rooster Json");
-        }
-
-
-    }
-    */
 
 }
