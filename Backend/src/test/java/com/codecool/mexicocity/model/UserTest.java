@@ -22,12 +22,12 @@ public class UserTest {
     private UserRepository userRepository;
 
     @Test
-    public void whenFindByName_ThenReturnUserName(){
+    public void whenFindByEmail_ThenReturnUserEmail(){
 
         //given
         Rooster rooster = new Rooster();
         entityManager.persist(rooster);
-        User alex = new User("alex@gmail.com", "123", rooster);
+        User alex = new User("alex@gmail.com", "Alex","123", rooster);
         entityManager.persist(alex);
         entityManager.flush();
 
@@ -36,6 +36,23 @@ public class UserTest {
 
         //then
         assertEquals(alex.getEmail(), foundAlex.getEmail());
+
+    }
+    @Test
+    public void whenFindByName_ThenReturnUserName(){
+
+        //given
+        Rooster rooster = new Rooster();
+        entityManager.persist(rooster);
+        User alex = new User("alex@gmail.com", "Alex","123", rooster);
+        entityManager.persist(alex);
+        entityManager.flush();
+
+        //when
+        User foundAlex = userRepository.findUserByName("Alex");
+
+        //then
+        assertEquals(alex.getName(), foundAlex.getName());
 
     }
 }
