@@ -37,14 +37,16 @@ class Home extends Component {
     render() {
         let roosters =  this.state.data.map(d => (
                             <Rooster
-                                key={d.id}
-                                id={d.id}
-                                experience={d.experience}
-                                level={d.level}
-                                gold={d.gold}
-                                wonMatches={d.wonMatches}
-                                lostMatches={d.lostMatches}
-                                image={d.image}/>)
+                                key={d.rooster.id}
+                                name={d.name}
+                                id={d.rooster.id}
+                                experience={d.rooster.experience}
+                                level={d.rooster.level}
+                                gold={d.rooster.gold}
+                                wonMatches={d.rooster.wonMatches}
+                                lostMatches={d.rooster.lostMatches}
+                                winRatio={d.rooster.winRatio}
+                                image={d.rooster.image}/>)
                         );
 
         return (
