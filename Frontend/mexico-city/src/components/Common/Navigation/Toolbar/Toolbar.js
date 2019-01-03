@@ -13,7 +13,7 @@ const toolbar = (props) => (
             </a>
         </div>
         <nav>
-            <NavigationItems displayRegModal={props.displayRegModal} displayLogModal={props.displayLogModal}/>
+            <NavigationItems auth={props.auth}/>
         </nav>
     </header>
 )
