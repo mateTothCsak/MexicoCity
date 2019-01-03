@@ -1,4 +1,20 @@
 
 .leftContainer{
+    padding: 10px;
+    margin: 50px  0 50px 250px ;
+    border: black 1px solid;
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    background-color: #B59C64;
+}
 
+p {
+    margin: 0;
+    padding: 5px;
+}
+
+img {
+    height: 250px;
+    width: 250px;
 }

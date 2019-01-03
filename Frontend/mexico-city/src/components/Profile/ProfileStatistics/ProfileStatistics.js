@@ -7,14 +7,36 @@ const profileStatistics = (props) => {
 
     return (
         <div className={classes.rightContainer}>
-            <p>Level: {props.rooster.level}</p>
-            <p>Experience: {props.rooster.experience}</p>
-            <p>Gold: {props.rooster.gold}</p>
-            <p>Won mathches: {props.rooster.wonMatches}</p>
-            <p>Lost Matches: {props.rooster.lostMatches}</p>
-            <p>Win ratio: {props.rooster.winRatio}</p>
-            <p>Id: {props.rooster.id}</p>
-
+            <table>
+                <tr>
+                    <td>Level:</td>
+                    <td>{props.rooster.level}</td>
+                </tr>
+                <tr>
+                    <td>Experience:</td>
+                    <td>{props.rooster.experience}</td>
+                </tr>
+                <tr>
+                    <td>Gold:</td>
+                    <td>{props.rooster.gold}</td>
+                </tr>
+                <tr>
+                    <td>Won Matches:</td>
+                    <td>{props.rooster.wonMatches}</td>
+                </tr>
+                <tr>
+                    <td>Lost Matches:</td>
+                    <td>{props.rooster.lostMatches}</td>
+                </tr>
+                <tr>
+                    <td>Win Ratio:</td>
+                    <td>{props.rooster.winRatio}</td>
+                </tr>
+                <tr>
+                    <td>Id:</td>
+                    <td>{props.rooster.id}</td>
+                </tr>
+            </table>
         </div>
     )
 }

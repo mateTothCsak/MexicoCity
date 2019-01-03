@@ -9,8 +9,10 @@ const profileDetails = (props) => {
 
     return (
         <div>
-            <ProfilePicture image={props.rooster.image} id={props.rooster.id} name={props.name}/>
-            <ProfileStatistics rooster={props.rooster}/>
+            <div className={classes.container}>
+                <ProfilePicture image={props.rooster.image} id={props.rooster.id} name={props.name}/>
+                <ProfileStatistics rooster={props.rooster}/>
+            </div>
         </div>
     )
 }

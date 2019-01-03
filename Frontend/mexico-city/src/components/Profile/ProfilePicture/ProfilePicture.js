@@ -7,7 +7,7 @@ const profilePicture = (props) => {
 
     return (
         <div className={classes.leftContainer}>
-            <img src={require('../../../assets/images/'+props.image)} alt={props.id} height="150" width="100"/>
+            <img src={require('../../../assets/images/'+props.image)} alt={props.id}/>
             <p>{props.name}</p>
         </div>
     )

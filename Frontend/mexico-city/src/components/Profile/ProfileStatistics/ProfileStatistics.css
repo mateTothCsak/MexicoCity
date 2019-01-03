@@ -1,0 +1,19 @@
+
+.rightContainer{
+    width: 40%;
+    padding: 10px;
+    margin: 50px  200px 50px 0;
+    border: black 1px solid;
+    text-align: left;
+    background-color: #B59C64;
+}
+
+td {
+    padding: 2px 20px;
+}
+
+table{
+    color: whitesmoke;
+    height: 100%;
+    width: 100%;
+}

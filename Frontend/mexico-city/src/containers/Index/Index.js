@@ -35,6 +35,7 @@ class Home extends Component {
     }
 
     render() {
+
         let roosters =  this.state.data.map(d => (
                             <Rooster
                                 key={d.rooster.id}
