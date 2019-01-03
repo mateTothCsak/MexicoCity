@@ -2,6 +2,15 @@ import auth0 from 'auth0-js';
 import history from '../../history';
 
 export default class Auth {
+    auth0 = new auth0.WebAuth({
+        domain: 'mexicocity.eu.auth0.com',
+        clientID: 'pqRxWaTon0yovXgcHi3H4o9JIM5fPsqj',
+        redirectUri: 'http://localhost:3000/callback',
+        responseType: 'token id_token',
+        scope: 'openid'
+    });
+
+
     accessToken;
     idToken;
     expiresAt;
@@ -16,13 +25,7 @@ export default class Auth {
         this.renewSession = this.renewSession.bind(this);
     }
 
-    auth0 = new auth0.WebAuth({
-        domain: 'mexicocity.eu.auth0.com',
-        clientID: 'pqRxWaTon0yovXgcHi3H4o9JIM5fPsqj',
-        redirectUri: 'http://localhost:3000/callback',
-        responseType: 'token id_token',
-        scope: 'openid'
-    });
+
 
     login() {
         this.auth0.authorize();

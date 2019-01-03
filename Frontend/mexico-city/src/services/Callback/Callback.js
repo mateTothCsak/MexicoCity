@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-// import loading from './loading.svg';
+import loading from '../../services/Callback/Callback'
+
 
 class Callback extends Component {
     render() {
-        const style = //...
 
         return (
-            <div style={style}>
+            <div >
                 <img src={loading} alt="loading"/>
             </div>
         );
