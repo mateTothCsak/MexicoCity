@@ -6,7 +6,8 @@ import {Route, Router} from "react-router-dom";
 import history from "./history";
 import Home from './containers/Home/Home'
 import Callback from './services/Callback/Callback';
-import Index from './containers/Index/Index'
+import Index from './containers/Index/Index';
+import Profile from './containers/Profile/Profile';
 
 
 const auth = new Auth();
@@ -86,9 +87,9 @@ class App extends Component {
 
                     <Router history={history} component={App}>
                         <Fragment>
-                            <Route path="/" compoent={<Index/>} />
-                            <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
-                            <Route path="/myprofile" render={(props) => <Home auth={auth} {...props} />} />
+                            <Route path="/" compoent={<Home/>} />
+                            <Route path="/home" render={(props) => <Index auth={auth} {...props} />} />
+                            <Route path="/myprofile" render={(props) => <Profile auth={auth} {...props} />} />
                             <Route path="/callback" render={(props) => {
                                 this.handleAuthentication(props);
                                 return <Callback {...props} />

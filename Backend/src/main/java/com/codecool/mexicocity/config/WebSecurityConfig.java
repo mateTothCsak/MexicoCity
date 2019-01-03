@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/login", "/register").permitAll()
-                .antMatchers(HttpMethod.GET, "/home", "/*").authenticated()
+                .antMatchers(HttpMethod.GET, "/home", "/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/shop").hasAuthority("read:messages");
     }
 }

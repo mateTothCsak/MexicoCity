@@ -3,6 +3,9 @@ import React, {Component, Fragment} from 'react'
 import Layout from '../../components/Common/Layout/Layout'
 import Rooster from '../../components/Home/Rooster/Rooster'
 
+import classes from './Index.css'
+
+
 
 const Index = 'http://localhost:8080/home';
 
@@ -47,7 +50,7 @@ class Home extends Component {
         return (
             <Fragment>
                 <Layout>
-                <h2 style={{color : "white"}}>Top Roosters</h2>
+                <h2>Top Roosters</h2>
                     {roosters}
                 </Layout>
             </Fragment>
