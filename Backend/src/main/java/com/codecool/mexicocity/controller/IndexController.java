@@ -21,13 +21,21 @@ public class IndexController {
 
     @GetMapping("/")
     public String loadMain(){
-        return "OK";
+        return "Welcome to MexicoCity";
     }
 
     @PostMapping("/")
-    public void sendLogIn(@RequestBody User user) throws IOException {
+    public String sendLogIn(@RequestBody User user) throws IOException {
         System.out.println("[USER] " + user.getEmail() + " " + user.getPassword());
-        userService.tryLogIn(user.getEmail(), user.getPassword());
+
+        User loginUser = userService.tryLogIn(user.getEmail(), user.getPassword());
+
+        if (loginUser != null){
+            return "Welcome " + user.getName();
+        }
+        else {
+            return "LogIn failed";
+        }
     }
 
 }

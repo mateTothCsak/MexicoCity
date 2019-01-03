@@ -19,18 +19,6 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!--
-        <version.java>1.7</version.java>
-        <version.eclipselink>2.6.2</version.eclipselink>
-        <version.hibernate.validator>5.1.2.Final</version.hibernate.validator>
-        <version.el>3.0.1-b03</version.el>
-        <version.mysql>5.1.21</version.mysql>
-        <version.postgres>42.1.1</version.postgres>
-        <version.maven.compiler.plugin>3.1</version.maven.compiler.plugin>
-        <version.maven.processor.plugin>2.2.4</version.maven.processor.plugin>
-        <version.junit>4.11</version.junit>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
     </properties>
 
 
@@ -68,17 +56,12 @@
             <optional>true</optional>
         </dependency>
 
-        <!--WebSecurity-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
 
-        <!--SecurityTest-->
+        <!--Auth0-->
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
+            <groupId>com.auth0</groupId>
+            <artifactId>auth0-spring-security-api</artifactId>
+            <version>1.1.0</version>
         </dependency>
 
         <dependency>
@@ -174,32 +157,6 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                 </plugin>
 
-                <!--<plugin>-->
-                    <!--<groupId>org.apache.maven.plugins</groupId>-->
-                    <!--<artifactId>maven-compiler-plugin</artifactId>-->
-                    <!--<version>3.7.0</version>-->
-                    <!--<configuration>-->
-                        <!--<source>1.8</source>-->
-                        <!--<target>1.8</target>-->
-                    <!--</configuration>-->
-                <!--</plugin>-->
-
-                <!--<plugin>-->
-                    <!--<groupId>org.apache.maven.plugins</groupId>-->
-                    <!--<artifactId>maven-war-plugin</artifactId>-->
-                    <!--<version>3.2.0</version>-->
-                <!--</plugin>-->
-
-
-                <!--<plugin>-->
-                    <!--<groupId>org.eclipse.jetty</groupId>-->
-                    <!--<artifactId>jetty-maven-plugin</artifactId>-->
-                    <!--<version>9.4.14.v20181114</version>-->
-                    <!--<configuration>-->
-                        <!--<reload>automatic</reload>-->
-                        <!--<scanIntervalSeconds>1</scanIntervalSeconds>-->
-                    <!--</configuration>-->
-                <!--</plugin>-->
             </plugins>
 
 

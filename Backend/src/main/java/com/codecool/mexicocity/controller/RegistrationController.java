@@ -28,11 +28,18 @@ public class RegistrationController{
     @PostMapping("/register")
     public String sendRegistration(@RequestBody User user){
         String email = user.getEmail();
+        String name = user.getName();
         String password = user.getPassword();
 
+        if (userService.checkForExistingEmail(user)){
+            return "Email: " + user.getEmail() + " already exists";
+        } else if (userService.checkForExistingName(user)){
+            return "User name: " + user.getName() + "already exists";
+        }
+
         Rooster rooster = roosterService.createRooster();
-        userService.createUser(email, password, rooster);
-        return email + " was successfully registered";
+        userService.createUser(email, name, password, rooster);
+        return name + " was successfully registered";
     }
 
 
