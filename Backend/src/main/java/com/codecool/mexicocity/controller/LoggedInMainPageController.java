@@ -1,6 +1,7 @@
 package com.codecool.mexicocity.controller;
 
 import com.codecool.mexicocity.model.Rooster;
+import com.codecool.mexicocity.model.RoosterAndUserName;
 import com.codecool.mexicocity.model.User;
 //import com.codecool.mexicocity.service.PostgresDBDetailsService;
 import com.codecool.mexicocity.service.RoosterService;
@@ -27,8 +28,10 @@ public class LoggedInMainPageController{
     }
 
     @GetMapping("/home")
-    public List<Rooster> loadUser() {
-        List<Rooster> topRoosters = roosterService.getTopRoosters();
+    public List<RoosterAndUserName> loadUser() {
+        //List<Rooster> topRoosters = roosterService.getTopRoosters();
+        List<RoosterAndUserName> topRoosters = roosterService.getRoostersWithUserName();
+        System.out.println(topRoosters);
         return topRoosters;
     }
 

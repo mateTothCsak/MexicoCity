@@ -34,6 +34,10 @@ public class UserService {
         return this.userRepository.findById(id);
     }
 
+    public User getOneUserById(Long id){
+        return this.userRepository.findOneById(id);
+    }
+
     public User getUserByEmail(String email){
         return (User) this.userRepository.findUserByEmail(email);
     }

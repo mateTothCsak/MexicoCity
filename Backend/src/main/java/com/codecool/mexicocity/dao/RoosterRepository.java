@@ -9,4 +9,6 @@ public interface RoosterRepository extends JpaRepository<Rooster, Long> {
 
     public List<Rooster> findTop10ByOrderByWonMatchesDesc();
 
+
+
 }

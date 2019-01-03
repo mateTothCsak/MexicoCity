@@ -3,9 +3,12 @@ package com.codecool.mexicocity.service;
 import com.codecool.mexicocity.dao.RoosterRepository;
 import com.codecool.mexicocity.model.Item;
 import com.codecool.mexicocity.model.Rooster;
+import com.codecool.mexicocity.model.RoosterAndUserName;
+import com.codecool.mexicocity.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,14 +17,17 @@ public class RoosterService {
 
     private RoosterRepository roosterRepository;
 
+    private UserService userService;
+
     private ItemService itemService;
 
     public RoosterService(){ }
 
     @Autowired
-    public RoosterService(RoosterRepository roosterRepository, ItemService itemService) {
+    public RoosterService(RoosterRepository roosterRepository, ItemService itemService, UserService userService) {
         this.roosterRepository = roosterRepository;
         this.itemService = itemService;
+        this.userService = userService;
     }
 
     public void add(Rooster rooster) {
@@ -150,4 +156,17 @@ public class RoosterService {
         return false;
     }
 
+    public String findUserName(Rooster rooster){
+        User user = userService.getOneUserById(rooster.getId());
+        return user.getName();
+    }
+
+    public List<RoosterAndUserName> getRoostersWithUserName(){
+        List<Rooster> topRoosters = getTopRoosters();
+        List<RoosterAndUserName> topRoostersWithName = new ArrayList();
+        for (Rooster rooster: topRoosters){
+            topRoostersWithName.add(new RoosterAndUserName(rooster, findUserName(rooster)));
+        }
+        return topRoostersWithName;
+    }
 }
