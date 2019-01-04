@@ -1,7 +1,8 @@
 import React from 'react';
 
 import classes from './InfoBox1.css';
-import Timer from '../../../assets/images/timer.png';
+import Timer from "../../../../assets/images/timer.png";
+
 
 
 const infoBox1 = () =>(
@@ -13,7 +14,7 @@ const infoBox1 = () =>(
             <p>Our bite-sized lessons are effective, and we have proof that it works.</p>
         </div>
         <div className={classes.RightContent}>
-            <img src={Timer} alt="GoodToLearn"></img>
+            <img src={Timer} alt="GoodToLearn"/>
         </div>
     </div>
 

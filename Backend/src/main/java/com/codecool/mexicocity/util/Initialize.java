@@ -48,6 +48,7 @@ public class Initialize {
         rooster.addItems(kalas);
         rooster.addItems(vest);
         rooster.setLevel(2);
+        rooster.setImage("pipi2.png");
         rooster.setExperience(50);
         rooster.setWonMatches(8);
         rooster.setLostMatches(2);
@@ -58,6 +59,7 @@ public class Initialize {
         Rooster rooster1 = new Rooster();
         rooster1.addItems(helmet);
         rooster1.setLevel(3);
+        rooster1.setImage("pipi3.png");
         rooster1.setExperience(65);
         rooster1.setWonMatches(12);
         rooster1.setLostMatches(4);
@@ -69,6 +71,7 @@ public class Initialize {
         rooster2.addItems(helmet);
         rooster2.addItems(vest);
         rooster2.setLevel(1);
+        rooster2.setImage("pipi1.png");
         rooster2.setExperience(10);
         rooster2.setWonMatches(3);
         rooster2.setLostMatches(1);
@@ -80,6 +83,7 @@ public class Initialize {
         rooster3.addItems(helmet);
         rooster3.addItems(vest);
         rooster3.setLevel(5);
+        rooster3.setImage("pipi5.png");
         rooster3.setExperience(99);
         rooster3.setWonMatches(33);
         rooster3.setLostMatches(66);

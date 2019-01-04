@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './Footer.css';
 // import Logo from '../../Logo/Logo'
-import FooterItems from '../Footer/FooterItems/FooterItems';
+import FooterItems from './FooterItems/FooterItems';
 
 
 const footer = () => (

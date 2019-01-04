@@ -1,9 +1,16 @@
 import React, { Component, Fragment } from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import { Navbar, Button } from 'react-bootstrap'
 
-
-import MyMainPage from './containers/MyMainPage/MyMainPage'
+import Auth from './services/Auth/Auth';
+import {Route, Router} from "react-router-dom";
+import history from "./history";
 import Home from './containers/Home/Home'
+import Callback from './services/Callback/Callback';
+import Index from './containers/Index/Index';
+import Profile from './containers/Profile/Profile';
+
+
+const auth = new Auth();
 
 class App extends Component {
     constructor(props){
@@ -13,44 +20,95 @@ class App extends Component {
         data : [],
         isLoading : false,
         error : null,
-        user : []
       };
   }
 
-  requireAuth=(nextState, replace)=>{
-    let [user] = [this.state.user]
-    if(user){
-      // history.push('/home')
-      // replace({
-      //   pathname : '/home',
-      //   state: { nextPathname: nextState.location.pathname }
-      // })
+    handleAuthentication = (nextState, replace) => {
+        if (/access_token|id_token|error/.test(nextState.location.hash)) {
+            auth.handleAuthentication();
+        }
     }
-  }
 
-  getUser=()=>{
-    localStorage.getItem('user')
-  }
+    goTo(route) {
+        this.props.history.replace(`/${route}`)
+    }
 
-  setUser=(user)=>{
-    localStorage.setItem('user', user)
-  }
+    login() {
+        auth.login();
+    }
+
+    logout() {
+        auth.logout();
+    }
+
+
+    componentDidMount() {
+        const { renewSession } = auth;
+
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            renewSession();
+        }
+    }
+
 
   render() {
-    let [user] = [this.state.user];
-
+    const { isAuthenticated } = auth;
     return (
-      <div>
-          <Router>
-            <Fragment>
-              <Route exact path="/" render={() => <MyMainPage userLogin={this.setUser} requireAuth={this.requireAuth}/>} />
-              <Route exact path="/home" render={()=><Home user={user}/>}/>
-            </Fragment>
-          </Router>
-      </div>
+
+        <div>
+            <Navbar fluid>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a href="#">Auth0 - React</a>
+                    </Navbar.Brand>
+                <Button onClick={this.goTo.bind(this, 'home')}>Home</Button>
+                {
+                    !isAuthenticated() && (
+                        <Button
+                            bsStyle="primary"
+                            className="btn-margin"
+                            onClick={this.login.bind(this)}
+                        >
+                            Log In
+                        </Button>
+                    )
+                }
+                {
+                    isAuthenticated() && (
+                        <Button
+                            bsStyle="primary"
+                            className="btn-margin"
+                            onClick={this.logout.bind(this)}
+                        >
+                            Log Out
+                        </Button>
+                    )
+                }
+
+                    <Router history={history} component={App}>
+                        <Fragment>
+                            <Route path="/" compoent={<Home/>} />
+                            <Route path="/home" render={(props) => <Index auth={auth} {...props} />} />
+                            <Route path="/myprofile" render={(props) => <Profile auth={auth} {...props} />} />
+                            <Route path="/callback" render={(props) => {
+                                this.handleAuthentication(props);
+                                return <Callback {...props} />
+                            }}/>
+                        </Fragment>
+                    </Router>
+                </Navbar.Header>
+            </Navbar>
+        </div>
     );
   }
 }
 
-// <Route path="protectedRoute" render={()=><Home user={user}/>} onEnter={this.requireAuth} />
+
+{/*<Router>*/}
+    {/*<Fragment>*/}
+        {/*/!*<Route exact path="/" render={() => <Index userLogin={this.setUser} requireAuth={this.requireAuth}/>} />*!/*/}
+        {/*/!*<Route exact path="/home" render={()=><Home user={user}/>}/>*!/*/}
+    {/*</Fragment>*/}
+{/*</Router>*/}
+
 export default App

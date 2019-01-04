@@ -1,0 +1,22 @@
+.MyRooster{
+    text-align:center;
+    height : 350px;
+    width: 350px;
+    padding: 10px;
+    margin: 16px auto;
+    background-color: white;
+    color: black;
+    box-shadow: 2px 3px grey;
+}
+
+div {
+    font-size: 0.8em;
+    margin: 3px;
+}
+
+.statContainer{
+    background-color: antiquewhite;
+    margin: 15px auto;
+    border: black 1px solid;
+    width: 80%;
+}

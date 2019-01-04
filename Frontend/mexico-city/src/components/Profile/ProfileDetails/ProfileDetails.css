@@ -1,0 +1,12 @@
+
+p {
+    color: white;
+}
+
+.container{
+    width: 90%;
+    border: solid 1px #000;
+    display: flex;
+    justify-content: space-between;
+    margin: 50px auto;
+}

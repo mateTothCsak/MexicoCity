@@ -1,6 +1,6 @@
 import React from 'react';
 
-import mexCityLogo from '../../assets/images/mexico-city-logo-1.png';
+import mexCityLogo from '../../../assets/images/mexico-city-logo-1.png';
 import classes from './Logo.css';
 
 
