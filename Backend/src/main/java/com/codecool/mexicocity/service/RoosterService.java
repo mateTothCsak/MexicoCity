@@ -92,10 +92,7 @@ public class RoosterService {
             }
     }
 
-    public void updateWonMatches(Rooster rooster) throws Exception {
-        Rooster foundRooster = this.getRoosterById(rooster.getId());
-        foundRooster.setWonMatches(foundRooster.getWonMatches() + 1);
-
+    private void calculateRatio(Rooster foundRooster) {
         float totalMatches = foundRooster.getLostMatches() + foundRooster.getWonMatches();
         float ratio = foundRooster.getWonMatches()/totalMatches;
         foundRooster.setWinRatio((int) (ratio * 100));
@@ -103,15 +100,16 @@ public class RoosterService {
         this.roosterRepository.save(foundRooster);
     }
 
+    public void updateWonMatches(Rooster rooster) throws Exception {
+        Rooster foundRooster = this.getRoosterById(rooster.getId());
+        foundRooster.setWonMatches(foundRooster.getWonMatches() + 1);
+        calculateRatio(foundRooster);
+    }
+
     public void updateLostMatches(Rooster rooster) throws Exception {
         Rooster foundRooster = this.getRoosterById(rooster.getId());
         foundRooster.setLostMatches(foundRooster.getLostMatches() + 1);
-
-        float totalMatches = foundRooster.getLostMatches() + foundRooster.getWonMatches();
-        float ratio = foundRooster.getWonMatches()/totalMatches;
-        foundRooster.setWinRatio((int) (ratio * 100));
-
-        this.roosterRepository.save(foundRooster);
+        calculateRatio(foundRooster);
     }
 
 
