@@ -1,9 +1,9 @@
-import React, {Component, Fragment} from 'react'
+import React, { Component, Fragment } from 'react';
 
-import Layout from '../../components/Common/Layout/Layout'
+import ProfileStats from "../../components/Profile/ProfileDetails/ProfileDetails";
+import Layout from "../../components/Common/Layout/Layout";
 import UserProfile from "../Home/Home";
 import axios from "axios";
-
 
 
 class Profile extends Component {
@@ -17,7 +17,7 @@ class Profile extends Component {
 
     componentDidMount(){
         const { getAccessToken } = this.props.auth;
-        const API_URL = 'http://localhost:8080/myprofile?id=1';
+        const API_URL = 'http://localhost:8080/myprofile' + this.props.location.search
         const headers = { 'Authorization': `Bearer ${getAccessToken()}`};
 
         axios.get(API_URL, {headers})
@@ -26,13 +26,16 @@ class Profile extends Component {
 
     }
 
+
     render() {
+        let d = this.state.data;
 
         return (
             <Fragment>
                 <Layout auth={this.props.auth} history={this.props.history}>
                     <UserProfile auth={this.props.auth}/>
-                    MyProfile
+                    <h2>My Rooster</h2>
+                    {d.rooster ? <ProfileStats name={d.name} rooster={d.rooster}/> : "Loading"}
                 </Layout>
             </Fragment>
         );

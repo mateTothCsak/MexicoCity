@@ -6,6 +6,8 @@ import InfoBox1 from '../../components/Index/InfoBox/InfoBox1/InfoBox1'
 import InfoBox2 from '../../components/Index/InfoBox/InfoBox2/InfoBox2'
 
 
+
+
 class Index extends Component {
     constructor(props){
         super(props)
@@ -13,9 +15,10 @@ class Index extends Component {
     }
 
     render() {
-        return (     
+        return (
             <Fragment>
-                <Layout auth={this.props.auth}>
+                <Layout>
+                   <Layout auth={this.props.auth}>
                     <Jumbotron/>
                     <InfoBox1/>
                     <InfoBox2/>

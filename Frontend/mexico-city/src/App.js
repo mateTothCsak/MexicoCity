@@ -36,6 +36,7 @@ class App extends Component {
                     <Route exact path="/" render={(props) => <Index auth={auth} {...props}/> } />
                     <Route exact path="/home" render={(props) =>  !auth.isAuthenticated() ? (<Redirect to="/"/>) : (<Home auth={auth} {...props}/>)} />
                     <Route exact path="/shop" render={(props) => !auth.isAuthenticated() ? (<Redirect to="/"/>) : (<Shop auth={auth} {...props}/>)} />
+                    <Route exact path="/myprofile" render={(props) => !auth.isAuthenticated() ? (<Redirect to="/"/>) : (<Profile auth={auth} {...props}/>)} />
                     <Route exact path="/callback" render={(props) => {
                         this.handleAuthentication(props);
                         return <Callback {...props} />
