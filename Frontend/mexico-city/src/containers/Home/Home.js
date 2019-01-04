@@ -11,7 +11,6 @@ class Home extends Component {
         super(props);
         this.state = {
             data: [],
-            isLoading : false,
             error : null,
           };
     }
@@ -41,9 +40,9 @@ class Home extends Component {
 
         return (
             <Fragment>
-                <Layout auth={this.props.auth}>
-                    <UserProfile auth={this.props.auth}/>
-                    <h2 style={{color : "white"}}>Top Roosters</h2>
+                <Layout auth={this.props.auth} history={this.props.history}>
+                    <UserProfile auth={this.props.auth} shortShow={true}/>
+                    <h3 style={{color : "white"}}>Top Roosters</h3>
                     {roosters}
                 </Layout>
             </Fragment>

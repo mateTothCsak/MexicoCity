@@ -64,7 +64,7 @@ export default class Auth {
             } else if (err) {
                 history.replace('/home');
                 console.log(err);
-                alert(`Error: ${err.error}. Check the console for further details.`);
+                // alert(`Error: ${err.error}. Check the console for further details.`);
             }
         });
     }
@@ -85,7 +85,7 @@ export default class Auth {
         this.scheduleRenewal();
 
         // Set the time that the access token will expire at
-        let expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
+        let expiresAt = (authResult.expiresIn * 30000) + new Date().getTime();
         this.accessToken = authResult.accessToken;
         this.idToken = authResult.idToken;
         this.expiresAt = expiresAt;
@@ -104,7 +104,7 @@ export default class Auth {
             } else if (err) {
                 this.logout();
                 console.log(err);
-                alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
+                // alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
             }
         });
     }

@@ -16,7 +16,10 @@ class UserProfile extends Component {
     }
     render() {
         const { profile } = this.state;
+        let show = this.props.shortShow;
+
         return (
+            {show}? <h3 style={{color: "white"}}>Welcome {profile.nickname}</h3> :
             <div className="container">
                 <div className="profile-area">
                     <h1>{profile.name}</h1>

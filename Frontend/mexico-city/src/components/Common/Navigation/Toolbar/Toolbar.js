@@ -13,7 +13,7 @@ const toolbar = (props) => (
             </a>
         </div>
         <nav>
-            <NavigationItems auth={props.auth}/>
+            <NavigationItems auth={props.auth} history={props.history}/>
         </nav>
     </header>
 )

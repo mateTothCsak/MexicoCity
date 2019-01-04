@@ -6,6 +6,15 @@ import NavigationItem from './NavigationItem/NavigationItem'
 
 class NavigationItems extends Component {
 
+    goTo=(route)=> {
+        this.props.history.replace(`/${route}`)
+    };
+
+    replace=(route)=>{
+        this.props.history.replace(`/${route}`)
+    }
+
+
     login=()=>{
         this.props.auth.login();
     };
@@ -40,8 +49,8 @@ class NavigationItems extends Component {
                 {
                     isAuthenticated() && (
                         <Fragment>
-                            <li><NavigationItem link={"/myprofile"}>MyProfile</NavigationItem></li>
-                            <li><NavigationItem link={"/shop"}>Shop</NavigationItem></li>
+                            <li onClick={()=>this.replace('myprofile')}><NavigationItem>MyProfile</NavigationItem></li>
+                            <li onClick={()=>this.replace('shop')}><NavigationItem>Shop</NavigationItem></li>
                         </Fragment>
                     )
                 }

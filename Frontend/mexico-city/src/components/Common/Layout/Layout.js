@@ -8,7 +8,7 @@ class Layout extends Component {
     render() {
         return (
             <Fragment>
-                <Toolbar auth={this.props.auth}/>
+                <Toolbar auth={this.props.auth} history={this.props.history}/>
                 <main className={classes.Content}>
                     {this.props.children}
                 </main>
