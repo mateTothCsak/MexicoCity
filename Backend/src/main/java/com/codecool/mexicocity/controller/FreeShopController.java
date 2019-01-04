@@ -5,7 +5,6 @@ import com.codecool.mexicocity.model.ItemConnector;
 import com.codecool.mexicocity.model.Rooster;
 import com.codecool.mexicocity.service.ItemService;
 import com.codecool.mexicocity.service.RoosterService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,9 +26,8 @@ public class FreeShopController{
 
 
     @GetMapping("/shop")
-    public List<Item> loadShop() throws JsonProcessingException {
-        List<Item> items = itemService.getAllItem();
-        return items;
+    public List<Item> loadShop() {
+        return itemService.getAllItem();
     }
 
     @PostMapping("/shop")

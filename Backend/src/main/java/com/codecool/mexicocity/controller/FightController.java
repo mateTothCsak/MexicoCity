@@ -9,15 +9,13 @@ import com.codecool.mexicocity.service.RoosterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.PrintWriter;
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 public class FightController {
 
-    FightService fightService;
-    RoosterService roosterService;
+    private FightService fightService;
+    private RoosterService roosterService;
 
     @Autowired
     public FightController(FightService fightService, RoosterService roosterService) {
@@ -31,8 +29,7 @@ public class FightController {
         Rooster rooster = roosterService.getRoosterById(roosterId);
         Fight fight = new Fight(rooster);
         fightService.add(fight);
-        FightQuizConnector fightQuizConnector = new FightQuizConnector(fight, quizes);
-        return fightQuizConnector;
+        return new FightQuizConnector(fight, quizes);
     }
 
     @PostMapping("/fight")

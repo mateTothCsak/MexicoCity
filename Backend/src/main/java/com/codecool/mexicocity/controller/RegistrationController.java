@@ -9,15 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import javax.servlet.http.HttpServlet;
 
 
 
 
 @RestController
 public class RegistrationController{
-    RoosterService roosterService;
-    UserService userService;
+    private RoosterService roosterService;
+    private UserService userService;
 
     @Autowired
     public RegistrationController(RoosterService roosterService, UserService userService) {

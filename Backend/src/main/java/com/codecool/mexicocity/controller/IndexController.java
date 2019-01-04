@@ -5,10 +5,6 @@ import com.codecool.mexicocity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServlet;
-import java.io.IOException;
-
-
 @RestController
 public class IndexController {
 
@@ -25,7 +21,7 @@ public class IndexController {
     }
 
     @PostMapping("/")
-    public String sendLogIn(@RequestBody User user) throws IOException {
+    public String sendLogIn(@RequestBody User user) {
         System.out.println("[USER] " + user.getEmail() + " " + user.getPassword());
 
         User loginUser = userService.tryLogIn(user.getEmail(), user.getPassword());
