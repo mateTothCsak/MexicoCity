@@ -9,10 +9,6 @@ import InfoBox2 from '../../components/Index/InfoBox/InfoBox2/InfoBox2'
 
 
 class Index extends Component {
-    constructor(props){
-        super(props);
-        this.state = {}
-    }
 
     render() {
         return (

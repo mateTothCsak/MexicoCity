@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
 import ProfileStats from "../../components/Profile/ProfileDetails/ProfileDetails";
-import Layout from "../../components/Common/Layout/Layout";
 import UserProfile from "../Home/Home";
 import axios from "axios";
 
@@ -34,11 +33,9 @@ class Profile extends Component {
 
         return (
             <Fragment>
-                <Layout auth={this.props.auth} history={this.props.history}>
-                    <UserProfile auth={this.props.auth}/>
-                    <h2>My Rooster</h2>
-                    {d.rooster ? <ProfileStats name={d.name} rooster={d.rooster}/> : "Loading"}
-                </Layout>
+                <UserProfile auth={this.props.auth}/>
+                <h2>My Rooster</h2>
+                {d.rooster ? <ProfileStats name={d.name} rooster={d.rooster}/> : "Loading"}
             </Fragment>
         );
     }

@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import axios from 'axios';
-import Layout from "../Profile/Profile";
+import Item from '../../components/Shop/Item/Item';
 
 class Shop extends Component{
     constructor(props){
@@ -24,13 +24,16 @@ class Shop extends Component{
 
 
     render() {
-        let shopItems = this.state.data;
+        let shopItems = this.state.data.map(d=> (
+            <Item
+                name={d.name}
+                id={d.id}
+            />
+        ));
 
         return (
             <Fragment>
-                <Layout auth={this.props.auth} history={this.props.history}>
-                    {shopItems}
-                </Layout>
+                <div style={{color: "white"}}>{shopItems}</div>
             </Fragment>
         )
 

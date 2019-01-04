@@ -52,13 +52,15 @@ class NavigationItems extends Component {
                 {
                     isAuthenticated() && (
                         <Fragment>
-                            <li onClick={()=>this.push('myprofile?id=1')}><NavigationItem>MyProfile</NavigationItem></li>
-                            {/*<li><NavigationItem>Shop</NavigationItem></li>*/}
-                            {/*<Link*/}
-                                {/*exact*/}
-                                {/*to={{pathname: '/myprofile?id=2'}}>*/}
-                                {/*MyProfile*/}
-                            {/*</Link>*/}
+                            <Link
+                                to={'/shop'}>
+                                Shop
+                            </Link>
+                            <Link
+                                exact
+                                to={'/myprofile?id=2'}>
+                                MyProfile
+                            </Link>
 
                         </Fragment>
                     )

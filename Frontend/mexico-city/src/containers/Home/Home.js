@@ -1,6 +1,5 @@
 import React, {Component, Fragment} from 'react'
 
-import Layout from '../../components/Common/Layout/Layout'
 import Rooster from '../../components/Home/Rooster/Rooster'
 import UserProfile from "../../services/UserProfile/UserProfile";
 import axios from 'axios';
@@ -41,11 +40,9 @@ class Home extends Component {
 
         return (
             <Fragment>
-                <Layout auth={this.props.auth} history={this.props.history}>
                     <UserProfile auth={this.props.auth} shortShow={true}/>
                     <h3 style={{color : "white"}}>Top Roosters</h3>
                     {roosters}
-                </Layout>
             </Fragment>
         );
     }
