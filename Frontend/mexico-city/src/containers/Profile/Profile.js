@@ -2,42 +2,40 @@ import React, { Component, Fragment } from 'react';
 
 import ProfileStats from "../../components/Profile/ProfileDetails/ProfileDetails";
 import Layout from "../../components/Common/Layout/Layout";
+import UserProfile from "../Home/Home";
+import axios from "axios";
 
-const Index = 'http://localhost:8080/myprofile';
 
 class Profile extends Component {
     constructor(props){
         super(props);
         this.state = {
+            id : null,
             data: [],
-            isLoading : false,
             error : null,
         };
     }
 
     componentDidMount(){
+        const { getAccessToken } = this.props.auth;
+        const API_URL = 'http://localhost:8080/myprofile?id=2';
+        // this.props.location.search
+        const headers = { 'Authorization': `Bearer ${getAccessToken()}`};
 
-        fetch(Index + this.props.location.search,
-            {method: "GET"})
-            .then(response => {
-                if(response.ok){
-                    return response.json();
-                } else {
-                    throw new Error('Something went wrong...')
-                }
-            })
-            .then(data => this.setState({ data , isLoading : false}))
-            .catch(error => this.setState({error, isLoading: false}))
+        axios.get(API_URL, {headers})
+            .then(response => this.setState({ data: response.data }))
+            .catch(error => this.setState({ error: error }));
+
     }
 
+
     render() {
-        console.log(Index + this.props.location.search);
         let d = this.state.data;
-        console.log(d);
 
         return (
             <Fragment>
-                <Layout>
+                <Layout auth={this.props.auth} history={this.props.history}>
+                    <UserProfile auth={this.props.auth}/>
                     <h2>My Rooster</h2>
                     {d.rooster ? <ProfileStats name={d.name} rooster={d.rooster}/> : "Loading"}
                 </Layout>
@@ -48,4 +46,3 @@ class Profile extends Component {
 
 
 export default Profile
-

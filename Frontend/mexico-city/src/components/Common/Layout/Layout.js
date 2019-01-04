@@ -1,18 +1,22 @@
-import React, { Fragment } from 'react';
+import React, {Component, Fragment } from 'react';
 
 import classes from './Layout.css';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import Footer from '../Footer/Footer';
 
-const layout = (props) => (
+class Layout extends Component {
+    render() {
+        return (
+            <Fragment>
+                <Toolbar auth={this.props.auth} history={this.props.history}/>
+                <main className={classes.Content}>
+                    {this.props.children}
+                </main>
+                <Footer/>
+            </Fragment>
+        )
+    }
 
-    <Fragment>
-        <Toolbar displayRegModal={props.displayRegModal} displayLogModal={props.displayLogModal}/>
-        <main className={classes.Content}>
-            {props.children}
-        </main>
-        <Footer/>
-    </Fragment>
-);
+};
 
-export default layout;
+export default Layout;

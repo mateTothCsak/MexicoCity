@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import loading from '../../services/Callback/Callback'
 
 
 class Callback extends Component {
@@ -7,7 +6,7 @@ class Callback extends Component {
 
         return (
             <div >
-                <img src={loading} alt="loading"/>
+                <p>loading..</p>
             </div>
         );
     }
