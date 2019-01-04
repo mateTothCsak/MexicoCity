@@ -1,4 +1,6 @@
 import React,{Component, Fragment} from 'react'
+import { Link } from 'react-router-dom';
+
 
 import classes from './NavigationItems.css'
 import NavigationItem from './NavigationItem/NavigationItem'
@@ -10,8 +12,9 @@ class NavigationItems extends Component {
         this.props.history.replace(`/${route}`)
     };
 
-    replace=(route)=>{
-        this.props.history.replace(`/${route}`)
+    push=(route)=>{
+        // this.props.history.replace(`/${route}`)
+        this.props.history.push(`/${route}`)
     }
 
 
@@ -49,8 +52,14 @@ class NavigationItems extends Component {
                 {
                     isAuthenticated() && (
                         <Fragment>
-                            <li onClick={()=>this.replace('myprofile')}><NavigationItem>MyProfile</NavigationItem></li>
-                            <li onClick={()=>this.replace('shop')}><NavigationItem>Shop</NavigationItem></li>
+                            <li onClick={()=>this.push('myprofile?id=1')}><NavigationItem>MyProfile</NavigationItem></li>
+                            {/*<li><NavigationItem>Shop</NavigationItem></li>*/}
+                            {/*<Link*/}
+                                {/*exact*/}
+                                {/*to={{pathname: '/myprofile?id=2'}}>*/}
+                                {/*MyProfile*/}
+                            {/*</Link>*/}
+
                         </Fragment>
                     )
                 }

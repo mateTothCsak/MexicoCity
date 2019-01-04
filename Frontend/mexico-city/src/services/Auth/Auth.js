@@ -62,7 +62,7 @@ export default class Auth {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 this.setSession(authResult);
             } else if (err) {
-                history.replace('/home');
+                history.replace('/myprofile?id=1');
                 console.log(err);
                 // alert(`Error: ${err.error}. Check the console for further details.`);
             }
@@ -94,7 +94,7 @@ export default class Auth {
         this.scopes = authResult.scope || this.requestedScopes || '';
 
         // navigate to the home route
-        history.replace('/home');
+        history.replace('/myprofile?id=1');
     }
 
     renewSession() {

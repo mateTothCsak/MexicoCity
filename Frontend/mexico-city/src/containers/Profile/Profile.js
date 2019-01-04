@@ -10,6 +10,7 @@ class Profile extends Component {
     constructor(props){
         super(props);
         this.state = {
+            id : null,
             data: [],
             error : null,
         };
@@ -17,7 +18,8 @@ class Profile extends Component {
 
     componentDidMount(){
         const { getAccessToken } = this.props.auth;
-        const API_URL = 'http://localhost:8080/myprofile' + this.props.location.search
+        const API_URL = 'http://localhost:8080/myprofile?id=2';
+        // this.props.location.search
         const headers = { 'Authorization': `Bearer ${getAccessToken()}`};
 
         axios.get(API_URL, {headers})

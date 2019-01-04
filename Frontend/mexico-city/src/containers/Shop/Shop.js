@@ -24,10 +24,12 @@ class Shop extends Component{
 
 
     render() {
+        let shopItems = this.state.data;
+
         return (
             <Fragment>
                 <Layout auth={this.props.auth} history={this.props.history}>
-                    Shop
+                    {shopItems}
                 </Layout>
             </Fragment>
         )
